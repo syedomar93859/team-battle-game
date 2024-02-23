@@ -4,9 +4,13 @@ public class Menu {
     public static final Scanner scanner = new Scanner(System.in);
 
     public static final ArrayList<String> options = new ArrayList<>();
+
     static {
         options.add("Exit");
-        //Add more menu options
+        options.add("Choose Attack");
+        options.add("Choose Run");
+        options.add("Choose Assist");
+
     }
     //The method below is the intro message that shows up above the menu.
     private static String optMessage = """
@@ -23,9 +27,10 @@ public class Menu {
     }
 
 
-    public static void menuLoop(){
+    public static void menuLoop()
+    {
         System.out.println(optMessage);
     }
 }
-//hello
+
 
