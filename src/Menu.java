@@ -5,12 +5,12 @@ public class Menu {
 
     public static final ArrayList<String> options = new ArrayList<>();
 
-    static {
+    static
+    {
         options.add("Exit");
         options.add("Choose Attack");
         options.add("Choose Run");
         options.add("Choose Assist");
-
     }
     //The method below is the intro message that shows up above the menu.
     private static String optMessage = """
@@ -30,6 +30,31 @@ public class Menu {
     public static void menuLoop()
     {
         System.out.println(optMessage);
+        String choice = scanner.nextLine();
+        int option = Integer.parseInt(choice);
+        while (option !=0)
+        {
+            switch (option)
+            {
+                case 1 -> menuEnterChooseAttack();
+                case 2 -> menuEnterChooseRun();
+                case 3 -> menuEnterChooseAssist();
+                default -> System.out.println("Option not recognizable");
+            }
+            System.out.println(optMessage);
+            choice = scanner.nextLine();
+            option = Integer.parseInt(choice);
+        }
+        System.out.println("Thank you for playing!");
+    }
+
+    private static void menuEnterChooseAssist() {
+    }
+
+    private static void menuEnterChooseRun() {
+    }
+
+    private static void menuEnterChooseAttack() {
     }
 }
 
