@@ -26,7 +26,6 @@ public class Menu {
             optMessage = sb.toString();
     }
 
-
     public static void menuLoop()
     {
         System.out.println(optMessage);
@@ -34,18 +33,26 @@ public class Menu {
         int option = Integer.parseInt(choice);
         while (option !=0)
         {
+            if (option > 0 && option < options.size())
+            {
+                System.out.printf("Selected option %d, %s%n", option, options.get(option));
+                System.out.println("Press any Enter key to continue");
+                scanner.nextLine();
+            }
             switch (option)
             {
                 case 1 -> menuEnterChooseAttack();
                 case 2 -> menuEnterChooseRun();
                 case 3 -> menuEnterChooseAssist();
-                default -> System.out.println("Option not recognizable");
+                default -> System.out.printf("Option %d not recognizable%n", option);
             }
+            System.out.println("Press any Enter key to see menu again");
+            scanner.nextLine();
             System.out.println(optMessage);
             choice = scanner.nextLine();
             option = Integer.parseInt(choice);
         }
-        System.out.println("Thank you for playing!");
+        System.out.printf("Thank you for playing!%nBye!%n");
     }
 
     private static void menuEnterChooseAssist() {
