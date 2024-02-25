@@ -60,34 +60,31 @@ public class Menu {
         System.out.println("Thank you for play!");
     }
 
-    private static void menuEnterChooseAssist()
-    {
-
-        boolean success = false;
-        while (!success)
-        {
-            String member = null;
-            success = Data.storeAssist(member);
-        }
-        // Int value to ID which player to Assist
-
-    }
-
-    private static void menuEnterChooseRun()
-    {
-        //store data
-    }
-
-    private static void menuEnterChooseAttack()
-    {
-        boolean success = false;
-        while (!success)
-        {
-            String attackType = null;
-            success = Data.storeTypeOfAttack(attackType);
+private static void menuEnterChooseAssist() {
+            boolean success = false;
+            while (!success) {
+                System.out.println("Enter the member to assist:");
+                String member = scanner.nextLine();
+                success = Data.storeAssist(member);
+            }
         }
 
-    }
-}
+        private static void menuEnterChooseRun() {
+            System.out.println("Enter the member to run:");
+            String member = scanner.nextLine();
+            boolean runSuccess = Data.storeRun();
+            System.out.printf("Run success: %b%n", runSuccess);
+        }
+
+        private static void menuEnterChooseAttack() {
+            boolean success = false;
+            while (!success) {
+                System.out.println("Enter the member and attack type:");
+                String member = scanner.nextLine();
+                String attackType = scanner.nextLine();
+                success = Data.storeAttack(attackType);
+            }
+        }
+    
 
 
