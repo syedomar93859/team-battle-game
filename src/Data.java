@@ -142,6 +142,36 @@ public class Data {
     }
 
     /**
+     * Used to determine the improved health
+     *
+     * @param member the member that will be taking action
+     * @return the int total affect of the action
+     */
+    public static int assistNewHealth(String member) {
+        int improvedHealth = 0;
+        if (member.equals("Potioneer")) {
+            improvedHealth = 750; // Potioneer raises health by 750 HP for all party members
+        } else if (member.equals("Shield User")) {
+            improvedHealth = 1500; // Shield User raises health by 1500 HP for one party member
+        }
+        return improvedHealth;
+    }
+
+    /**
+     * Used to determine the improved attack
+     *
+     * @param member the member that will be taking action
+     * @return the int total affect of the action
+     */
+    public static int assistNewAttack(String member) {
+        int improvedAttack = 0;
+        if (member.equals("Swordsman")) {
+            improvedAttack = 150; // Swordsman raises attack for one party member by 150% for 3 turns
+        }
+        return improvedAttack;
+    }
+
+    /**
      * Used to determine the action taken
      *
      * @param member the member that will be taking action
