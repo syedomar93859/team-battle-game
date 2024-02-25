@@ -111,7 +111,7 @@ public class Data {
         int change = 0;
         if (member.equals("Swordsman")) {
             if (action == 2) { // Wide slash
-                change = -150; 
+                change = -150;
             }
         } else if (member.equals("Shield User")) {
             if (action == 2) { // Protect
@@ -123,6 +123,13 @@ public class Data {
         return change;
     }
 
+    /**
+     * Used to determine if the action is an AoE or single attack
+     *
+     * @param member the member that will be taking action
+     * @param action the action the member will take
+     * @return the int total affect of the action
+     */
     public static int attackDetails(String member, int action) {
         int affect = 0;
         boolean isAoE = false;
@@ -133,70 +140,55 @@ public class Data {
         }
         return affect;
     }
-    public static boolean assistDetermining(String member) {
-        boolean assistSuccess = false;
-        // Determine the success rate for the member's assist action
-        return assistSuccess;
-    }
 
-    public static int actionCheck(String member,int action, int attackAction, String affectedMember) {
-        //attackDetails is a method that I have not created yet that will calculate the whatever the attack is of the member
-        //assistDetermining is a method that determines if an assist is successful as they have a chance to fail
-        //a is a method that
-        if (member == "Potioneer") {
-            //I don't think there should be an if statement checking to see if the option chosen was Exit, as Menu.java
-            //alone can deal with it
+    /**
+     * Used to determine the action taken
+     *
+     * @param member the member that will be taking action
+     * @param action the action the member will take
+     * @param attackAction the int total affect of the action
+     * @param affectedMember the member that will be affected by an assist
+     * @return the int total affect of the action
+     */
+    public static int actionCheck(String member, int action, int attackAction, String affectedMember) {
+        if (member.equals("Potioneer")) {
             if (action == 2) {
-                int damage = Data.attackDetails(String member, int attackPotioneerAction);
-                return damage;
-            }
-            //I also think Menu.java can deal with Run.
-            else if (action == 4) {
-                boolean assistSuccess = Data.assistDetermining(String member);
-                if (assistSuccess == true) {
-                    return -1;//You should probably come up with something more complicated than -1. Since all the calculating needs to happen in Data.java, there
-                    //could be another method that calulates  the improved health of all the members.
-                } else if (assistSuccess == false) {
-                    return -2;
-                }
-                //I was thinking that Menu.java can use the returned negative number to determine is the assist worked or not.
-            }
-        } else if (member == "Swordsman") {
-            if (action == 2) {
-                int damage = Data.attackDetails(String member, int attackSwordsmanAction);
+                int damage = Data.attackDetails(member, attackAction);
                 return damage;
             } else if (action == 4) {
-                boolean assistSuccess = Data.assistDetermining(String member);
-                if (assistSuccess == true) {
-                    return -1;// I think Menu.java should take this -1 and let a loop go on for 3 rounds which would call a different method separate from actionCheck
-                    //in each round to calculate the damage dealt by new attacks.
-                } else if (assistSuccess == false) {
-                    return -2;
-                }
+                // You should probably come up with something more complicated than -1. Since all the calculating needs to happen in Data.java, there
+                // could be another method that calulates  the improved health of all the members.
+                int improvedHealth = Data.assistNewHealth(affectedMember);
+                return improvedHealth;
             }
-        } else if (member == "Shield User") {
+        } else if (member.equals("Swordsman")) {
             if (action == 2) {
-                int damage = Data.attackDetails(String member, int attackShieldUserAction);
+                int damage = Data.attackDetails(member, attackAction);
                 return damage;
             } else if (action == 4) {
-                boolean assistSuccess = Data.assistDetermining(String member);
-                if (assistSuccess == true) {
-                    int memberImprovedHealth = Data.assistNewHealth(affectedMember);
-                    //memberImprovedHealth should instead store the improved health of all party members which is not possible with the current actionCheck as it can only return
-                    //int and not hashmaps which would be more suitable.
-                    return memberImprovedHealth;
-                } else if (assistSuccess == false) {
-                    return -2;
-                }
+                // I think Menu.java should take this -1 and let a loop go on for 3 rounds which would call a different method separate from actionCheck
+                // in each round to calculate the damage dealt by new attacks.
+                int improvedAttack = Data.assistNewAttack(affectedMember);
+                return improvedAttack;
+            }
+        } else if (member.equals("Shield User")) {
+            if (action == 2) {
+                int damage = Data.attackDetails(member, attackAction);
+                return damage;
+            } else if (action == 4) {
+                // memberImprovedHealth should instead store the improved health of all party members which is not possible with the current actionCheck as it can only return
+                // int and not hashmaps which would be more suitable.
+                int memberImprovedHealth = Data.assistNewHealth(affectedMember);
+                return memberImprovedHealth;
             }
         }
-    }
+    return 0;
 }
 
-public static HashMap<String,Integer> newFoeHealth(){
-    HashMap<String, Integer> newFoeHealth = new HashMap<String, Integer>();
+    public static HashMap<String,Integer> newFoeHealth(){
+        HashMap<String, Integer> newFoeHealth = new HashMap<String, Integer>();
 
-    return startingHealth;
+        return startingHealth;
 
     /**
      * Used to store the member which will be assisted
