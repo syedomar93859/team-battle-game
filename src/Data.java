@@ -268,7 +268,7 @@ public class Data {
     }
 
     /**
-     * Used to store the run 
+     * Used to store the run
      *
      * @param member the member that will be taking action
      * @return the int total affect of the action
@@ -292,19 +292,6 @@ public class Data {
         members.add(id);
         System.out.println("Stored member to assist!");
         return true;
-    }
-
-
-    public static int calculatingEntityHealth(){
-
-    }
-    public static int displayEntityHealth(){
-        for(int entityIndex = 0; entityIndex < entities.length; entityIndex++){
-            if (entityIndex == 0){
-                potioneerHealth =
-            }
-        }
-        return 4;
     }
 }
 
