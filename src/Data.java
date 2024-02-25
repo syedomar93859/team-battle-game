@@ -3,10 +3,10 @@
  *  Syed Omar T12
  *  Feb 28, 2024
  */
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-
 
 /**SlimeBoss
  10000 health level
@@ -53,6 +53,7 @@ import java.util.HashSet;
  run
  assist - raise health by 1500 hp for one party member
  */
+
 public class Data {
     public static HashMap<String,Integer> beginningHealth(){
         HashMap<String, Integer> startingHealth = new HashMap<String, Integer>();
@@ -132,7 +133,8 @@ public class Data {
      */
     public static int attackDetails(String member, int action) {
         int affect = 0;
-        boolean isAoE = false;
+        boolean isAoE = (member.equals("Swordsman") && action == 2) ||
+                (member.equals("Shield User") && (action == 2 || action == 3));
         if (isAoE) {
             affect = areaAffect(member, action);
         } else {
@@ -215,25 +217,66 @@ public class Data {
     return 0;
 }
 
-    public static HashMap<String,Integer> newFoeHealth(){
+    /**
+     * Used to determine the foes' health
+     *
+     * @param foe the foe that will be taking action
+     * @param member the member that will be taking action
+     * @param action the action the member will take
+     * @return the int total affect of the action
+     */
+    public static HashMap<String, Integer> newFoeHealth(String foe, String member, int action) {
         HashMap<String, Integer> newFoeHealth = new HashMap<String, Integer>();
 
-        return startingHealth;
+        // Get the old health of the foe
+        int oldHealth = newFoeHealth.get(foe);
+
+        // Determine if the action is an AoE or not
+        boolean isAoE = (member.equals("Swordsman") && action == 2) ||
+                (member.equals("Shield User") && (action == 2 || action == 3));
+
+        // Calculate the damage based on the action
+        int damage;
+        if (isAoE) {
+            damage = areaAffect(member, action);
+        } else {
+            damage = singleAffect(member, action);
+        }
+
+        // Calculate the new health based on the old health and the damage
+        int newHealth = oldHealth - damage;
+
+        // Update the health of the foe
+        newFoeHealth.put(foe, newHealth);
+
+        return newFoeHealth;
+    }
+
 
     /**
-     * Used to store the member which will be assisted
+     * Used to store the exit
      */
     public static boolean exitGame(){
         return false;
     }
+
+    /**
+     * Used to store the member attack
+     */
     public static boolean storeAttack(String member) {
         return false;
     }
-    public static boolean storeRun(){
-        return false;}
 
-
-    private static final ArrayList<Object[]> members = new ArrayList<>();
+    /**
+     * Used to store the run 
+     *
+     * @param member the member that will be taking action
+     * @return the int total affect of the action
+     */
+    public static boolean storeRun() {
+        System.out.println("The character has chosen to run!");
+        return true; // Return true to indicate run was successful.
+    }
 
     /**
      * Used to check if the member has been stored
@@ -241,6 +284,7 @@ public class Data {
      * @param member the member that will be assisted
      * @return true if member is stored successfully and false if not
      */
+    private static final ArrayList<Object[]> members = new ArrayList<>();
     public static boolean storeAssist (String member){
         Object[] id = new Object[2];
         id[0] = member;
@@ -249,6 +293,8 @@ public class Data {
         System.out.println("Stored member to assist!");
         return true;
     }
+
+
     public static int calculatingEntityHealth(){
 
     }
