@@ -5,8 +5,6 @@
 *@emails: syed.omar@ucalgary.ca, nethanya.dhaiphule@ucalgary.ca and arfa.raja@ucalgary.ca
 *@version 21.0.1
 */
-//test commit
-//another test commit
 public class Main {
     public static void main(String[] args){
         Menu.menuLoop();
