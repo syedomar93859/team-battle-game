@@ -63,10 +63,41 @@ public class Data {
         return startingHealth;
     }
 
+    /**
+     * Used to calculate the damage of a single affect attack
+     *
+     * @param member the member that will be attacking
+     * @param action the action the member will take
+     * @return the int total damage of the attack
+     */
     public static int singleAffect(String member, int action) {
-        int change = 0;
-        // Calculate the single effect
-        return change;
+        int damage = 0;
+        // Determine how much a singular member is healed or singular foe is damaged
+        if (member.equals("Potioneer")) {
+            if (action == 1) { // Regular attack - punch
+                damage = -100; // Damage is represented as negative
+            } else if (action == 2) { // Poison
+                damage = -150; 
+            } else if (action == 3) { // Glass shards
+                damage = -150; 
+            }
+        } else if (member.equals("Swordsman")) {
+            if (action == 1) { // Regular attack - slash
+                damage = -200; e
+            } else if (action == 2) { // Lucky stab
+                double chance = Math.random();
+                if (chance < 0.5) {
+                    damage = -500; 
+                } else {
+                    damage = -250;
+                }
+            }
+        } else if (member.equals("Shield User")) {
+            if (action == 1) { // Regular attack - shield bash
+                damage = -100; 
+            }
+        }
+        return damage;
     }
 
     public static int areaAffect(String member, int action) {
