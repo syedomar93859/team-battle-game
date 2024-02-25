@@ -75,6 +75,7 @@ public class Menu {
 
     private static void menuEnterChooseRun()
     {
+        //store data
     }
 
     private static void menuEnterChooseAttack()
