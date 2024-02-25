@@ -66,9 +66,9 @@ public class Data {
     /**
      * Used to calculate the damage of a single affect attack
      *
-     * @param member the member that will be attacking
+     * @param member the member that will be taking action
      * @param action the action the member will take
-     * @return the int total damage of the attack
+     * @return the int total affect of the action
      */
     public static int singleAffect(String member, int action) {
         int damage = 0;
@@ -77,33 +77,50 @@ public class Data {
             if (action == 1) { // Regular attack - punch
                 damage = -100; // Damage is represented as negative
             } else if (action == 2) { // Poison
-                damage = -150; 
+                damage = -150;
             } else if (action == 3) { // Glass shards
-                damage = -150; 
+                damage = -150;
             }
         } else if (member.equals("Swordsman")) {
             if (action == 1) { // Regular attack - slash
-                damage = -200; e
+                damage = -200;
             } else if (action == 2) { // Lucky stab
-                double chance = Math.random();
+                double chance = Math.random(); // 50% chance to deal double damage
                 if (chance < 0.5) {
-                    damage = -500; 
+                    damage = -500;
                 } else {
                     damage = -250;
                 }
             }
         } else if (member.equals("Shield User")) {
             if (action == 1) { // Regular attack - shield bash
-                damage = -100; 
+                damage = -100;
             }
         }
         return damage;
     }
 
+    /**
+     * Used to calculate the damage of an AoE attack
+     *
+     * @param member the member that will be taking action
+     * @param action the action the member will take
+     * @return the int total affect of the action
+     */
     public static int areaAffect(String member, int action) {
-        int areaChange = 0;
-        // Calculate the AoE
-        return areaChange;
+        int change = 0;
+        if (member.equals("Swordsman")) {
+            if (action == 2) { // Wide slash
+                change = -150; 
+            }
+        } else if (member.equals("Shield User")) {
+            if (action == 2) { // Protect
+                change = 0; // No change in health
+            } else if (action == 3) { // Party grace
+                change = 0;
+            }
+        }
+        return change;
     }
 
     public static int attackDetails(String member, int action) {
