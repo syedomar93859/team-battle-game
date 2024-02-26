@@ -28,4 +28,9 @@ public class Data {
         System.out.println("Stored member to assist!");
         return true;
     }
+
+    public static String displayStat(String member)
+    {
+        // method to get member stat and return it
+    }
 }
