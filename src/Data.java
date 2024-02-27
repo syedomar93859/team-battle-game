@@ -150,9 +150,9 @@ public class Data {
     public static int assistNewHealth(String member, String affectedMember) {
         int improvedHealth = 0;
         if (member.equals("Potioneer")) {
-            improvedHealth = 750; // Potioneer raises health by 750 HP for all party members
+            improvedHealth = 750 + beginningHealth().get(affectedMember); // Potioneer raises health by 750 HP for all party members
         } else if (member.equals("Shield User")) {
-            improvedHealth = 1500; // Shield User raises health by 1500 HP for one party member
+            improvedHealth = 1500 + beginningHealth().get(affectedMember); // Shield User raises health by 1500 HP for one party member
         }
         return improvedHealth;
     }
@@ -166,7 +166,7 @@ public class Data {
     public static int assistNewAttack(String member, String affectedMember) {
         int improvedAttack = 0;
         if (member.equals("Swordsman")) {
-            improvedAttack = 150; // Swordsman raises attack for one party member by 150% for 3 turns
+            improvedAttack = 150; // Swordsman raises attack for one party member by 150 for 3 turns
         }
         return improvedAttack;
     }
