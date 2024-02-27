@@ -55,6 +55,21 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class Data {
+    /**
+     * Used to check if the member has been stored
+     *
+     * @param member the member that will be assisted
+     * @return true if member is stored successfully and false if not
+     */
+    private static final ArrayList<Object[]> members = new ArrayList<>();
+    public static boolean storeMember (String member){
+        Object[] id = new Object[2];
+        id[0] = member;
+        id[1] = false;
+        members.add(id);
+        System.out.println("Stored member to assist!");
+        return true;
+    }
 
     public static HashMap<String,Integer> beginningHealth(){
         HashMap<String, Integer> startingHealth = new HashMap<String, Integer>();
@@ -284,9 +299,17 @@ public class Data {
      * @return the int total affect of the action
      */
     public static boolean storeRun(String member) {
-        System.out.println("The character has chosen to run!");
-        return true; // Return true to indicate run was successful.
+        for (int i = 0; i < members.size(); i++) {
+            // If the member is found in the list, remove it
+            if (members.get(i)[0].equals(member)) {
+                members.remove(i);
+                System.out.println(member + " has chosen to run!");
+                return true; // Return true to indicate run was successful.
+            }
+        }
+        return false;
     }
+
 
     /**
      * Used to check if the member has been stored
