@@ -10,6 +10,7 @@ public class Menu {
         options.add("Choose Attack");
         options.add("Choose Run");
         options.add("Choose Assist");
+        options.add("About Members");
     }
 
     //The method below is the intro message that shows up above the menu.
@@ -46,8 +47,7 @@ public class Menu {
                 case 1 -> menuEnterChooseAttack();
                 case 2 -> menuEnterChooseRun();
                 case 3 -> menuEnterChooseAssist();
-                case 4 -> menuEnterDisplayStats();
-               // case 5 -> menuAboutMembers();
+                case 4 -> menuAboutMembers();
                 default -> System.out.printf("Option %d not recognizable%n", option);
             }
             System.out.println("Press any Enter key to see menu again");
