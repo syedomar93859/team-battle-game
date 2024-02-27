@@ -1,0 +1,154 @@
+Index: src/Data.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>public class Data {\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Data.java b/src/Data.java
+--- a/src/Data.java	(revision 76baaf64599899e73b1fed9004c40544a0d125b0)
++++ b/src/Data.java	(date 1708763498937)
+@@ -1,2 +1,36 @@
++/** Arfa Raja T09
++ *  Nethanya Dhaiphule T12
++ *  Syed Omar T12
++ *  Feb 28, 2024
++ */
++
++import java.util.ArrayList;
++
++
+ public class Data {
++
++    /**
++     * Used to store the member which will be assisted
++     */
++    private static final ArrayList<Object[]> members = new ArrayList<>();
++
++    /**
++     * Used to check if the member has been stored
++     *
++     * @param member the member that will be assisted
++     * @return true if member is stored successfully and false if not
++     */
++    public static boolean storeAssist (String member){
++        Object[] id = new Object[2];
++        id[0] = member;
++        id[1] = false;
++        members.add(id);
++        System.out.println("Stored member to assist!");
++        return true;
++    }
++
++    public static boolean storeTypeOfAttack(String attackType) {
++        return true;
++    }
+ }
++
+Index: src/DataTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/DataTest.java b/src/DataTest.java
+new file mode 100644
+--- /dev/null	(date 1708764724486)
++++ b/src/DataTest.java	(date 1708764724486)
+@@ -0,0 +1,12 @@
++import static org.junit.jupiter.api.Assertions.*;
++
++class DataTest {
++
++    @org.junit.jupiter.api.Test
++    void storeAssist() {
++    }
++
++    @org.junit.jupiter.api.Test
++    void storeTypeOfAttack() {
++    }
++}
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"a4f87bc1-a171-4809-b3e9-e4f979fb00ae\" name=\"Changes\" comment=\"Menu initialization also complete. More menu options are needed\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/Menu.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Menu.java\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\n      <map>\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\n      </map>\n    </option>\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitLabMergeRequestFiltersHistory\"><![CDATA[{\n  \"lastFilter\": {\n    \"state\": \"OPENED\",\n    \"assignee\": {\n      \"type\": \"org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue\",\n      \"username\": \"syed.omar\",\n      \"fullname\": \"Syed OMAR\"\n    }\n  }\n}]]></component>\n  <component name=\"GitLabMergeRequestsSettings\"><![CDATA[{\n  \"selectedUrlAndAccountId\": {\n    \"first\": \"https://csgit.ucalgary.ca/syed.omar/groupproject.git\",\n    \"second\": \"ffbbc4b7-7632-4e67-86f1-a79e3ed4c704\"\n  }\n}]]></component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 0\n}</component>\n  <component name=\"ProjectId\" id=\"2cjLD38L3ByBJot2rZJlUrmoMnO\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"Application.Main.executor\": \"Run\",\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"git-widget-placeholder\": \"MainDetails\",\n    \"kotlin-language-version-configured\": \"true\"\n  }\n}]]></component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"jdk-21.0.1-openjdk-21.0.1-4caba194b151-9b16c6e2\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"a4f87bc1-a171-4809-b3e9-e4f979fb00ae\" name=\"Changes\" comment=\"\" />\n      <created>1708619919070</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1708619919070</updated>\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Initial commit\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1708620129432</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1708620129432</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"Menu initialization also complete. More menu options are needed\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1708632038000</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1708632038000</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"3\" />\n    <servers />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Initial commit\" />\n    <MESSAGE value=\"Menu initialization also complete. More menu options are needed\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Menu initialization also complete. More menu options are needed\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 76baaf64599899e73b1fed9004c40544a0d125b0)
++++ b/.idea/workspace.xml	(date 1708800352196)
+@@ -4,8 +4,10 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="a4f87bc1-a171-4809-b3e9-e4f979fb00ae" name="Changes" comment="Menu initialization also complete. More menu options are needed">
++    <list default="true" id="a4f87bc1-a171-4809-b3e9-e4f979fb00ae" name="Changes" comment="Added comments to Main.java">
++      <change afterPath="$PROJECT_DIR$/src/DataTest.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Data.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Menu.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -17,6 +19,7 @@
+     <option name="RECENT_TEMPLATES">
+       <list>
+         <option value="Class" />
++        <option value="JUnit5 Test Class" />
+       </list>
+     </option>
+   </component>
+@@ -58,10 +61,25 @@
+     "Application.Main.executor": "Run",
+     "RunOnceActivity.OpenProjectViewOnStart": "true",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
++    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
++    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
++    "create.test.in.the.same.root": "true",
+     "git-widget-placeholder": "MainDetails",
+-    "kotlin-language-version-configured": "true"
++    "kotlin-language-version-configured": "true",
++    "project.structure.last.edited": "Project",
++    "project.structure.proportion": "0.15",
++    "project.structure.side.proportion": "0.2",
++    "settings.editor.selected.configurable": "preferences.editor"
+   }
+ }]]></component>
++  <component name="RecentsManager">
++    <key name="CreateTestDialog.Recents.Supers">
++      <recent name="" />
++    </key>
++    <key name="CreateTestDialog.RecentsKey">
++      <recent name="" />
++    </key>
++  </component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+@@ -94,7 +112,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1708632038000</updated>
+     </task>
+-    <option name="localTasksCounter" value="3" />
++    <task id="LOCAL-00003" summary="Added comments to Main.java">
++      <option name="closed" value="true" />
++      <created>1708763192768</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1708763192768</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -111,6 +137,7 @@
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="Initial commit" />
+     <MESSAGE value="Menu initialization also complete. More menu options are needed" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Menu initialization also complete. More menu options are needed" />
++    <MESSAGE value="Added comments to Main.java" />
++    <option name="LAST_COMMIT_MESSAGE" value="Added comments to Main.java" />
+   </component>
+ </project>
+\ No newline at end of file
