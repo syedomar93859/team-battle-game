@@ -55,6 +55,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class Data {
+
     public static HashMap<String,Integer> beginningHealth(){
         HashMap<String, Integer> startingHealth = new HashMap<String, Integer>();
         startingHealth.put("Potioneer", 2000);
@@ -307,6 +308,29 @@ public class Data {
         stats += "Health: " + beginningHealth().get(member) + "\n";
 
         return stats;
+    }
+
+    public static String AboutMembers(int member) {
+        String about = "";
+        if (member == 1) {
+         about = "Potion user: 2000 hp\n" +
+                "Attack - Punch: 100 dmg\n" +
+                "Skill - Poison: 150 dmg\n" +
+                "Burst - Glass Shards: 150 dmg\n" +
+                "Assist:  Raise hp by 750\n";
+        } else if (member == 2) {
+             about = "Sword user: 2500 hp\n" +
+                    "Attack - 200 dmg\n" +
+                     "Skill - Lucky Stab: 250 dmg with 50% chance to deal double\n" +
+                    "Burst - Desperate Slash: Damage equal to 160000 divided by health\n" +
+                    "Assist:  Raise atk by 150\n";
+        }  else if (member == 3) {
+             about =  "Shield user - 5000 hp\n" +
+                "Attack - Shield Bash: 100 dmg\n" +
+                "Skill - Protect: Takes 50% of dmg\n" +
+                "Burst - Party Grace: Protects all party members\n" +
+                "Assist: Raise hp by 1500";
+            } return about;
     }
 }
 
