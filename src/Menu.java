@@ -47,6 +47,7 @@ public class Menu {
                 case 2 -> menuEnterChooseRun();
                 case 3 -> menuEnterChooseAssist();
                 case 4 -> menuEnterDisplayStats();
+               // case 5 -> menuAboutMembers();
                 default -> System.out.printf("Option %d not recognizable%n", option);
             }
             System.out.println("Press any Enter key to see menu again");
@@ -58,22 +59,27 @@ public class Menu {
         System.out.println("Thank you for playing!");
     }
 
+    private static void menuAboutMembers()
+    {
+        int count = 0;
+        System.out.println("1.Potioneer");
+        System.out.println(Data.AboutMembers(1));
+        System.out.println("2.Swordsman");
+        System.out.println(Data.AboutMembers(2));
+        System.out.println("3.Shield User");
+        System.out.println(Data.AboutMembers(1));
+    }
+
+
+
     private static void menuEnterDisplayStats()
     {
-        boolean success = false;
-        while (!success) {
-            System.out.println("Which member would you like me to display stats for?");
-            String member = scanner.nextLine();
-            System.out.println(Data.displayStat(member));
-            System.out.println("Would you like me to display stats for another member? (1- Yes, 2-No)");
-            int answer = scanner.nextInt();
-            if (answer == 2)
-            {
-                success = true;
-            }
-        }
-        }
-            }
+        System.out.println(Data.displayStat("Potioneer"));
+        System.out.println(Data.displayStat("Swordsman"));
+        System.out.println(Data.displayStat("Shield User"));
+
+    }
+
 
 
     private static void menuEnterChooseAssist() {
@@ -82,14 +88,18 @@ public class Menu {
             System.out.println("Enter the member to assist:");
             String member = scanner.nextLine();
             success = Data.storeAssist(member);
+            System.out.println();
+            menuEnterDisplayStats();
         }
     }
 
     private static void menuEnterChooseRun() {
         System.out.println("Enter the member to run:");
         String member = scanner.nextLine();
-        boolean runSuccess = Data.storeRun();
+        boolean runSuccess = Data.storeRun(member);
         System.out.printf("Run success: %b%n", runSuccess);
+        System.out.println();
+        menuEnterDisplayStats();
     }
 
     private static void menuEnterChooseAttack() {
@@ -97,11 +107,15 @@ public class Menu {
         while (!success) {
             System.out.println("Enter the member and attack type:");
             String member = scanner.nextLine();
-            String attackType = scanner.nextLine();
-            success = Data.storeAttack(attackType);
+            int attackType = Integer.parseInt(scanner.nextLine());
+            success = Data.storeAttack(member, attackType);
+            System.out.println(success);
+            System.out.println();
+            menuEnterDisplayStats();
         }
     }
 }
+
     
 
 
