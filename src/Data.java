@@ -214,8 +214,8 @@ public class Data {
                 return memberImprovedHealth;
             }
         }
-    return 0;
-}
+        return 0;
+    }
 
     /**
      * Used to determine the foes' health
@@ -293,5 +293,21 @@ public class Data {
         System.out.println("Stored member to assist!");
         return true;
     }
+
+    public static String displayStat(String member, int action) {
+
+        String stats = "Stats for " + member + ":\n";
+
+        // Add the stats for the member
+        stats += "Health: " + beginningHealth().get(member) + "\n";
+        stats += "Damage: " + singleAffect(member, action) + "\n";
+
+        // Add the improved health and attack stats
+        stats += "Improved Health: " + assistNewHealth(member) + "\n";
+        stats += "Improved Attack: " + assistNewAttack(member) + "\n";
+
+        return stats;
+    }
 }
+
 
