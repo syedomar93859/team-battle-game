@@ -263,9 +263,17 @@ public class Data {
     /**
      * Used to store the member attack
      */
-    public static boolean storeAttack(String member) {
+    public static boolean storeAttack(String member, int action) {
+        int damage = singleAffect(member, action);
+        int change = areaAffect(member, action);
+
+        // Store the damage and change values
+        System.out.println("Damage: " + damage);
+        System.out.println("Change: " + change);
+
         return false;
     }
+
 
     /**
      * Used to store the run
@@ -273,7 +281,7 @@ public class Data {
      * @param member the member that will be taking action
      * @return the int total affect of the action
      */
-    public static boolean storeRun() {
+    public static boolean storeRun(String member) {
         System.out.println("The character has chosen to run!");
         return true; // Return true to indicate run was successful.
     }
@@ -294,13 +302,12 @@ public class Data {
         return true;
     }
 
-    public static String displayStat(String member, int action) {
+    public static String displayStat(String member) {
 
         String stats = "Stats for " + member + ":\n";
 
         // Add the stats for the member
         stats += "Health: " + beginningHealth().get(member) + "\n";
-        stats += "Damage: " + singleAffect(member, action) + "\n";
 
         // Add the improved health and attack stats
         stats += "Improved Health: " + assistNewHealth(member) + "\n";
