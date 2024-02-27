@@ -89,6 +89,9 @@ public class Data {
      */
     public static int singleAffect(String member, int action) {
         int damage = 0;
+        if (action == 0) {
+            damage = 0;
+        }
         // Determine how much a singular member is healed or singular foe is damaged
         if (member.equals("Potioneer")) {
             if (action == 1) { // Regular attack - punch
@@ -110,8 +113,8 @@ public class Data {
                 }
             } else if (action == 3) { // desperate stab
                 int x = beginningHealth().get(member);
-                    damage = -160000/x;
-                }
+                damage = -160000/x;
+            }
         } else if (member.equals("Shield User")) {
             if (action == 1) { // Regular attack - shield bash
                 damage = -100;
@@ -129,7 +132,7 @@ public class Data {
      */
     public static int areaAffect(String member, int action) {
         int change = 0;
-         if (member.equals("Shield User")) {
+        if (member.equals("Shield User")) {
             if (action == 2) { // Protect
                 change = 0; // No change in health
             } else if (action == 3) { // Party grace
@@ -282,46 +285,33 @@ public class Data {
         return false;
     }
 
-    /**
-     * Used to store the member attack
-     */
+    // Create a HashMap to store the values
+    public static HashMap<String, Integer> storedValues = new HashMap<>();
+
     public static boolean storeAttack(String member, int action) {
-        int damage = singleAffect(member, action);
-        // Store the damage and change values
-        System.out.println("Damage: " + damage);
-        return false;
+            int damage = singleAffect(member, action);
+            // Store the damage
+            storedValues.put(member + "Attack" + action, damage);
+            System.out.println("Damage: " + damage);
+            return true; // Return true if the operation was successful
+         }
+
+    public static boolean storeRun(String member, int zero) {
+        zero = 0;
+            int damage = singleAffect(member, zero);
+            // Store the damage
+            storedValues.put(member + "Run" + zero, damage);
+            return true; // Return true if the operation was successful
     }
 
-    /**
-     * Used to store the run
-     *
-     * @param member the member that will be taking action
-     * @return the int total affect of the action
-     */
-    public static boolean storeRun(String member) {
-        for (int i = 0; i < members.size(); i++) {
-            // If the member is found in the list, remove it
-            if (members.get(i)[0].equals(member)) {
-                members.remove(i);
-                System.out.println(member + " has chosen to run!");
-                return true; // Return true to indicate run was successful.
-            }
-        }
-        return false;
+    public static boolean storeAssist(String member, int action) {
+            int change = areaAffect(member, action);
+            // Store the change
+            storedValues.put(member + "Assist" + action, change);
+            System.out.println("Assist: " + change);
+            return true; // Return true if the operation was successful
     }
 
-
-    /**
-     * Used to check if the member has been stored
-     *
-     * @param member the member that will be assisted
-     * @return true if member is stored successfully and false if not
-     */
-    public static boolean storeAssist (String member,  int action){
-        int change = areaAffect(member, action);
-        System.out.println("Assist: " + change);
-        return true;
-    }
 
     public static String displayStat(String member) {
 
@@ -336,24 +326,24 @@ public class Data {
     public static String AboutMembers(int member) {
         String about = "";
         if (member == 1) {
-         about = "Potion user: 2000 hp\n" +
-                "Attack - Punch: 100 dmg\n" +
-                "Skill - Poison: 150 dmg\n" +
-                "Burst - Glass Shards: 150 dmg\n" +
-                "Assist:  Raise hp by 750\n";
+            about = "Potion user: 2000 hp\n" +
+                    "Attack - Punch: 100 dmg\n" +
+                    "Skill - Poison: 150 dmg\n" +
+                    "Burst - Glass Shards: 150 dmg\n" +
+                    "Assist:  Raise hp by 750\n";
         } else if (member == 2) {
-             about = "Sword user: 2500 hp\n" +
+            about = "Sword user: 2500 hp\n" +
                     "Attack - 200 dmg\n" +
-                     "Skill - Lucky Stab: 250 dmg with 50% chance to deal double\n" +
+                    "Skill - Lucky Stab: 250 dmg with 50% chance to deal double\n" +
                     "Burst - Desperate Slash: Damage equal to 160000 divided by health\n" +
                     "Assist:  Raise atk by 150\n";
         }  else if (member == 3) {
-             about =  "Shield user - 5000 hp\n" +
-                "Attack - Shield Bash: 100 dmg\n" +
-                "Skill - Protect: Takes 50% of dmg\n" +
-                "Burst - Party Grace: Protects all party members\n" +
-                "Assist: Raise hp by 1500";
-            } return about;
+            about =  "Shield user - 5000 hp\n" +
+                    "Attack - Shield Bash: 100 dmg\n" +
+                    "Skill - Protect: Takes 50% of dmg\n" +
+                    "Burst - Party Grace: Protects all party members\n" +
+                    "Assist: Raise hp by 1500";
+        } return about;
     }
 }
 
