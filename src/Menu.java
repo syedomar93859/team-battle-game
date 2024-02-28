@@ -97,11 +97,14 @@ public class Menu {
             System.out.println("Enter the member to assist:");
             String member = scanner.nextLine();
             System.out.println();
-            System.out.println("Enter the attack type:");
-            int attack = Integer.parseInt(scanner.nextLine());
-            if (validateMember(member) && validateAttack(attack))
+            System.out.println("Enter the member you want to assist:");
+            String assistMember = scanner.nextLine();
+            if (validateMember(member) && validateMember(assistMember))
             {
-                success = Data.storeAssist(member, attack);
+                // success = Data.storeAssist(member, attack);
+                //Data.assistNewHealth(member, assistMember);
+                System.out.println(Data.assistNewHealth(member, assistMember));
+                success = true;
             }
             else
             {
@@ -170,7 +173,7 @@ public class Menu {
      * @return true if input is valid
      */
     private static boolean validateAttack(int attack) {
-        if (attack == 1 || attack == 2 || attack == 3) {
+        if (attack == 1 || attack == 2 || attack == 3 || attack == 4) {
             return true;
         } else {
             return false;
@@ -191,5 +194,3 @@ public class Menu {
         }
     }
 }
-
-

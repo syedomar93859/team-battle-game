@@ -289,27 +289,27 @@ public class Data {
     public static HashMap<String, Integer> storedValues = new HashMap<>();
 
     public static boolean storeAttack(String member, int action) {
-            int damage = singleAffect(member, action);
-            // Store the damage
-            storedValues.put(member + "Attack" + action, damage);
-            System.out.println("Damage: " + damage);
-            return true; // Return true if the operation was successful
-         }
+        int damage = singleAffect(member, action);
+        // Store the damage
+        storedValues.put(member + "Attack" + action, damage);
+        System.out.println("Damage: " + damage);
+        return true; // Return true if the operation was successful
+    }
 
     public static boolean storeRun(String member, int zero) {
         zero = 0;
-            int damage = singleAffect(member, zero);
-            // Store the damage
-            storedValues.put(member + "Run" + zero, damage);
-            return true; // Return true if the operation was successful
+        int damage = singleAffect(member, zero);
+        // Store the damage
+        storedValues.put(member + "Run" + zero, damage);
+        return true; // Return true if the operation was successful
     }
 
     public static boolean storeAssist(String member, int action) {
-            int change = areaAffect(member, action);
-            // Store the change
-            storedValues.put(member + "Assist" + action, change);
-            System.out.println("Assist: " + change);
-            return true; // Return true if the operation was successful
+        int change = areaAffect(member, action);
+        // Store the change
+        storedValues.put(member + "Assist" + action, change);
+        System.out.println("Assist: " + change);
+        return true; // Return true if the operation was successful
     }
 
 
