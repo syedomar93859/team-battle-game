@@ -4,10 +4,6 @@
  *  Feb 28, 2024
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-
 /**SlimeBoss
  10000 health level
  takes turn after all members have had a turn
@@ -54,7 +50,27 @@ import java.util.HashSet;
  assist - raise health by 1500 hp for one party member
  */
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+
 public class Data {
+    /**
+     * Used to check if the member has been stored
+     *
+     * @param member the member that will be assisted
+     * @return true if member is stored successfully and false if not
+     */
+    private static final ArrayList<Object[]> members = new ArrayList<>();
+    public static boolean storeMember (String member){
+        Object[] id = new Object[2];
+        id[0] = member;
+        id[1] = false;
+        members.add(id);
+        System.out.println("Stored member to assist!");
+        return true;
+    }
+
     public static HashMap<String,Integer> beginningHealth(){
         HashMap<String, Integer> startingHealth = new HashMap<String, Integer>();
         startingHealth.put("Potioneer", 2000);
@@ -73,6 +89,9 @@ public class Data {
      */
     public static int singleAffect(String member, int action) {
         int damage = 0;
+        if (action == 0) {
+            damage = 0;
+        }
         // Determine how much a singular member is healed or singular foe is damaged
         if (member.equals("Potioneer")) {
             if (action == 1) { // Regular attack - punch
@@ -92,6 +111,9 @@ public class Data {
                 } else {
                     damage = -250;
                 }
+            } else if (action == 3) { // desperate stab
+                int x = beginningHealth().get(member);
+                damage = -160000/x;
             }
         } else if (member.equals("Shield User")) {
             if (action == 1) { // Regular attack - shield bash
@@ -110,11 +132,7 @@ public class Data {
      */
     public static int areaAffect(String member, int action) {
         int change = 0;
-        if (member.equals("Swordsman")) {
-            if (action == 2) { // Wide slash
-                change = -150;
-            }
-        } else if (member.equals("Shield User")) {
+        if (member.equals("Shield User")) {
             if (action == 2) { // Protect
                 change = 0; // No change in health
             } else if (action == 3) { // Party grace
@@ -133,8 +151,7 @@ public class Data {
      */
     public static int attackDetails(String member, int action) {
         int affect = 0;
-        boolean isAoE = (member.equals("Swordsman") && action == 2) ||
-                (member.equals("Shield User") && (action == 2 || action == 3));
+        boolean isAoE = (member.equals("Shield User") && (action == 2 || action == 3));
         if (isAoE) {
             affect = areaAffect(member, action);
         } else {
@@ -149,12 +166,12 @@ public class Data {
      * @param member the member that will be taking action
      * @return the int total affect of the action
      */
-    public static int assistNewHealth(String member) {
+    public static int assistNewHealth(String member, String affectedMember) {
         int improvedHealth = 0;
         if (member.equals("Potioneer")) {
-            improvedHealth = 750; // Potioneer raises health by 750 HP for all party members
+            improvedHealth = 750 + beginningHealth().get(affectedMember); // Potioneer raises health by 750 HP for all party members
         } else if (member.equals("Shield User")) {
-            improvedHealth = 1500; // Shield User raises health by 1500 HP for one party member
+            improvedHealth = 1500 + beginningHealth().get(affectedMember); // Shield User raises health by 1500 HP for one party member
         }
         return improvedHealth;
     }
@@ -165,10 +182,10 @@ public class Data {
      * @param member the member that will be taking action
      * @return the int total affect of the action
      */
-    public static int assistNewAttack(String member) {
+    public static int assistNewAttack(String member, String affectedMember) {
         int improvedAttack = 0;
         if (member.equals("Swordsman")) {
-            improvedAttack = 150; // Swordsman raises attack for one party member by 150% for 3 turns
+            improvedAttack = 150; // Swordsman raises attack for one party member by 150 for 3 turns
         }
         return improvedAttack;
     }
@@ -184,33 +201,45 @@ public class Data {
      */
     public static int actionCheck(String member, int action, int attackAction, String affectedMember) {
         if (member.equals("Potioneer")) {
-            if (action == 2) {
+            if (action == 1) {
                 int damage = Data.attackDetails(member, attackAction);
                 return damage;
-            } else if (action == 4) {
+            } else if (action == 2) {
+                int damage = Data.attackDetails(member, attackAction);
+                return damage;
+            } else if (action == 3) {
+                int damage = Data.attackDetails(member, attackAction);
+                return damage;
+            }else if (action == 4) {
                 // You should probably come up with something more complicated than -1. Since all the calculating needs to happen in Data.java, there
                 // could be another method that calulates  the improved health of all the members.
-                int improvedHealth = Data.assistNewHealth(affectedMember);
+                int improvedHealth = Data.assistNewHealth(member, affectedMember);
                 return improvedHealth;
             }
         } else if (member.equals("Swordsman")) {
-            if (action == 2) {
+            if (action == 1) {
+                int damage = Data.attackDetails(member, attackAction);
+                return damage;
+            } else if (action == 2) {
+                int damage = Data.attackDetails(member, attackAction);
+                return damage;
+            } else if (action == 3) {
                 int damage = Data.attackDetails(member, attackAction);
                 return damage;
             } else if (action == 4) {
                 // I think Menu.java should take this -1 and let a loop go on for 3 rounds which would call a different method separate from actionCheck
                 // in each round to calculate the damage dealt by new attacks.
-                int improvedAttack = Data.assistNewAttack(affectedMember);
+                int improvedAttack = Data.assistNewAttack(member, affectedMember);
                 return improvedAttack;
             }
         } else if (member.equals("Shield User")) {
-            if (action == 2) {
+            if (action == 1) {
                 int damage = Data.attackDetails(member, attackAction);
                 return damage;
             } else if (action == 4) {
                 // memberImprovedHealth should instead store the improved health of all party members which is not possible with the current actionCheck as it can only return
                 // int and not hashmaps which would be more suitable.
-                int memberImprovedHealth = Data.assistNewHealth(affectedMember);
+                int memberImprovedHealth = Data.assistNewHealth(member, affectedMember);
                 return memberImprovedHealth;
             }
         }
@@ -232,8 +261,7 @@ public class Data {
         int oldHealth = newFoeHealth.get(foe);
 
         // Determine if the action is an AoE or not
-        boolean isAoE = (member.equals("Swordsman") && action == 2) ||
-                (member.equals("Shield User") && (action == 2 || action == 3));
+        boolean isAoE = (member.equals("Shield User") && (action == 2 || action == 3));
 
         // Calculate the damage based on the action
         int damage;
@@ -242,16 +270,13 @@ public class Data {
         } else {
             damage = singleAffect(member, action);
         }
-
         // Calculate the new health based on the old health and the damage
         int newHealth = oldHealth - damage;
 
         // Update the health of the foe
         newFoeHealth.put(foe, newHealth);
-
         return newFoeHealth;
     }
-
 
     /**
      * Used to store the exit
@@ -260,47 +285,33 @@ public class Data {
         return false;
     }
 
-    /**
-     * Used to store the member attack
-     */
+    // Create a HashMap to store the values
+    public static HashMap<String, Integer> storedValues = new HashMap<>();
+
     public static boolean storeAttack(String member, int action) {
-        int damage = singleAffect(member, action);
-        int change = areaAffect(member, action);
+            int damage = singleAffect(member, action);
+            // Store the damage
+            storedValues.put(member + "Attack" + action, damage);
+            System.out.println("Damage: " + damage);
+            return true; // Return true if the operation was successful
+         }
 
-        // Store the damage and change values
-        System.out.println("Damage: " + damage);
-        System.out.println("Change: " + change);
-
-        return false;
+    public static boolean storeRun(String member, int zero) {
+        zero = 0;
+            int damage = singleAffect(member, zero);
+            // Store the damage
+            storedValues.put(member + "Run" + zero, damage);
+            return true; // Return true if the operation was successful
     }
 
-
-    /**
-     * Used to store the run
-     *
-     * @param member the member that will be taking action
-     * @return the int total affect of the action
-     */
-    public static boolean storeRun(String member) {
-        System.out.println("The character has chosen to run!");
-        return true; // Return true to indicate run was successful.
+    public static boolean storeAssist(String member, int action) {
+            int change = areaAffect(member, action);
+            // Store the change
+            storedValues.put(member + "Assist" + action, change);
+            System.out.println("Assist: " + change);
+            return true; // Return true if the operation was successful
     }
 
-    /**
-     * Used to check if the member has been stored
-     *
-     * @param member the member that will be assisted
-     * @return true if member is stored successfully and false if not
-     */
-    private static final ArrayList<Object[]> members = new ArrayList<>();
-    public static boolean storeAssist (String member){
-        Object[] id = new Object[2];
-        id[0] = member;
-        id[1] = false;
-        members.add(id);
-        System.out.println("Stored member to assist!");
-        return true;
-    }
 
     public static String displayStat(String member) {
 
@@ -309,21 +320,31 @@ public class Data {
         // Add the stats for the member
         stats += "Health: " + beginningHealth().get(member) + "\n";
 
-        // Add the improved health and attack stats
-        stats += "Improved Health: " + assistNewHealth(member) + "\n";
-        stats += "Improved Attack: " + assistNewAttack(member) + "\n";
-
         return stats;
-    }public static int desperateSlash(swordsmanHealth) {
-        //This method will determine the damage dealt by the desperate slash of the swordsman using his health.
-        int damage = 160000 / swordsmanHealth;
-        return damage;
-    }public static int attackEnhancment(attackDamage){
-        //This method will take the attack that needs to be enhanced and calculates damage of the enhanced attack.
-        int enhancedDamage = attackDamge * 1.5;
-        return enhancedDamage;
+    }
+
+    public static String AboutMembers(int member) {
+        String about = "";
+        if (member == 1) {
+            about = "Potion user: 2000 hp\n" +
+                    "Attack - Punch: 100 dmg\n" +
+                    "Skill - Poison: 150 dmg\n" +
+                    "Burst - Glass Shards: 150 dmg\n" +
+                    "Assist:  Raise hp by 750\n";
+        } else if (member == 2) {
+            about = "Sword user: 2500 hp\n" +
+                    "Attack - 200 dmg\n" +
+                    "Skill - Lucky Stab: 250 dmg with 50% chance to deal double\n" +
+                    "Burst - Desperate Slash: Damage equal to 160000 divided by health\n" +
+                    "Assist:  Raise atk by 150\n";
+        }  else if (member == 3) {
+            about =  "Shield user - 5000 hp\n" +
+                    "Attack - Shield Bash: 100 dmg\n" +
+                    "Skill - Protect: Takes 50% of dmg\n" +
+                    "Burst - Party Grace: Protects all party members\n" +
+                    "Assist: Raise hp by 1500";
+        } return about;
     }
 }
-
 
 
