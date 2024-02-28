@@ -15,10 +15,7 @@ public class Menu {
 
     //The method below is the intro message that shows up above the menu.
     private static String optMessage = """
-            Your team has entered an undiscovered cave entrance and goes inside to take a safe and short rest in the night. All of you have been travelling on a long voyage to seek wealth and power. Unknowingly, they just stepped into the domain of a long gone ancient king called Mammon. Demon King Mammon was a demon that caused calamities wherever it went, by cursing crowds of people and royalty with excessive greed and causing them to go insane. The number of people affected were in the millions and caused families and communities to dissolve. Fortunately, a mysterious hero came from lands far away had happen to come face to face with the beast. His presence lifted the cursed of anyone around him and his weapon, a sword that seemingly bursted out with holy power, cut the beast until no parts of it were left. The hero soon disappeared using magical means that were too advanced for anyone to comprehend, and kingdoms and villages were left to recover for the next century. It has been more than 500 years since the great demon was put to rest, and all the power of the kingdoms and nations had grown even stronger. Old tales remind explorers of the vast riches the demon left behind in its resting grounds that it collected from battlefields it never joined, but won regardless. Whether these tales were myths or not, did not stop hundreds of thousands of adventurers from searching for the ancient beast’s riches all throughout the land.The team of three knew about this story in the back of their mind, but never considered trying to find the grounds as it   seemed impossible for the fact that no-one has discovered such a place for centuries.\s
-            They continued deeper into the cave, to eventually face a dead end and settle down. But before they had a chance, a black blob slowly creeped out from a small crevice at the ceiling of the bottom of the cave. The trio took their stances, ready to engage in a fight as the 8 feet tall and 8 feet wide black slime blocked their way out of the cave. Once fully formed, the trio could see jewels, gold coins and other treasures stuck deep in the black slime’s translucent body. Before the trio could consider the riches they may obtain, they moved slightly forward and engaged in a battle
-                        
-            BATTLE ENGAGE!\s
+           \s
                         
             Store and access details of the options and actions of the members in the party and also details about foe.
             \tMenu Options
@@ -43,6 +40,7 @@ public class Menu {
                 System.out.println("Press any Enter key to continue");
                 scanner.nextLine();
             }
+            // switch case to prompt user to input option chosen
             switch (option) {
                 case 1 -> menuEnterChooseAttack();
                 case 2 -> menuEnterChooseRun();
@@ -59,8 +57,12 @@ public class Menu {
         System.out.println("Thank you for playing!");
     }
 
-    private static void menuAboutMembers()
-    {
+
+    /**
+     * used to display description about each member
+     *
+     */
+    private static void menuAboutMembers() {
         int count = 0;
         System.out.println("1.Potioneer");
         System.out.println(Data.AboutMembers(1));
@@ -70,52 +72,124 @@ public class Menu {
         System.out.println(Data.AboutMembers(1));
     }
 
-
-
-    private static void menuEnterDisplayStats()
-    {
+    /**
+     * Used to stats of each member
+     *
+     */
+    private static void menuEnterDisplayStats() {
         System.out.println(Data.displayStat("Potioneer"));
         System.out.println(Data.displayStat("Swordsman"));
         System.out.println(Data.displayStat("Shield User"));
+        System.out.println("------------------------------------------");
 
     }
 
 
 
+    /**
+     * Used to choose assist on member
+     *
+     */
     private static void menuEnterChooseAssist() {
+        menuEnterDisplayStats();
         boolean success = false;
         while (!success) {
             System.out.println("Enter the member to assist:");
             String member = scanner.nextLine();
-            success = Data.storeAssist(member);
             System.out.println();
-            menuEnterDisplayStats();
+            System.out.println("Enter the attack type:");
+            int attack = Integer.parseInt(scanner.nextLine());
+            if (validateMember(member) && validateAttack(attack))
+            {
+                success = Data.storeAssist(member, attack);
+            }
+            else
+            {
+                System.out.println("Error: please enter valid member and attack. Please press enter and try again.");
+                System.out.println();
+            }
         }
     }
 
-    private static void menuEnterChooseRun() {
-        System.out.println("Enter the member to run:");
-        String member = scanner.nextLine();
-        boolean runSuccess = Data.storeRun(member);
-        System.out.printf("Run success: %b%n", runSuccess);
-        System.out.println();
-        menuEnterDisplayStats();
-    }
 
-    private static void menuEnterChooseAttack() {
+    /**
+     * Used to choose a member to run
+     *
+     */
+    private static void menuEnterChooseRun() {
+        menuEnterDisplayStats();
         boolean success = false;
         while (!success) {
-            System.out.println("Enter the member and attack type:");
+            System.out.println("Enter the member to run:");
             String member = scanner.nextLine();
+            if (validateMember(member)) {
+                boolean runSuccess = Data.storeRun(member,0);
+                success = runSuccess;
+                System.out.printf("Run success: %b%n", runSuccess);
+            }
+            else {
+                System.out.println("Error: please enter valid member. Please press enter and try again.");
+                System.out.println();
+            }
+
+        }
+    }
+
+    /**
+     * Used to choose member and attack
+     *
+     */
+    private static void menuEnterChooseAttack()
+    {
+        menuEnterDisplayStats();
+        boolean success = false;
+        String member;
+        while (!success)
+        {
+            System.out.println("Enter the member and attack type:");
+            member = scanner.nextLine();
             int attackType = Integer.parseInt(scanner.nextLine());
-            success = Data.storeAttack(member, attackType);
-            System.out.println(success);
-            System.out.println();
-            menuEnterDisplayStats();
+            if (validateMember(member) && validateAttack(attackType))
+            {
+                success = Data.storeAttack(member, attackType);
+                System.out.println(success);
+                System.out.println();
+            }
+            else
+            {
+                System.out.println("Error: please enter valid member and attack. Please press enter and try again.");
+                System.out.println();
+            }
+        }
+    }
+
+    /**
+     * Used to validate user input of attack
+     *
+     * @param attack the  number the user has input which corresponds to the attack type
+     * @return true if input is valid
+     */
+    private static boolean validateAttack(int attack) {
+        if (attack == 1 || attack == 2 || attack == 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Used to validate user input of attack
+     *
+     * @param member the  number the user has input which corresponds to the attack type
+     * @return true if input is valid
+     */
+    private static boolean validateMember(String member) {
+        if (member.equals("Potioneer") || member.equals("Swordsman") || member.equals("Shield User")) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
-
-    
 
 
