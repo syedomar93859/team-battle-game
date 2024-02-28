@@ -1,38 +1,3 @@
-/**     Potioneer
-        Current Health: Whatever it is
-
-        Attack Options:
-        Regular Attack - Punch dealing 150 damage.
-        Poison (3 times max per battle) - Causes foe to have poison status effect. Effect lasts for 3 turns to foe. Foe takes 150 damage after its turn.
-        Glass Shards (once per 7 turns. once max per battle) - When foe attacks potion user, foe takes 150 damage.
-
-        Run - Party member leaves battle.
-
-        Assist - Raise health by 750 health point for all party members.
-        -----------------------------------------------------------------------
-        Swordsman
-        Current Health: Whatever it is
-
-        Regular Attack - Slash dealing 200 damage.
-        Desperate Slash (once per 3 turns) - Slash that does more damage, the lower the health of Swordsman.
-        Lucky Stab (once per 5 turns) - Stab that has a 50% change of dealing 250 damage and another 50% chance to deal 500 damage.
-
-        Run - Party member leaves battle.
-
-        Assist - Raise atk for one party member by 150% for 3 turns.
-        -----------------------------------------------------------------------
-        Shield User
-        Current Health: Whatever it is
-
-        Regular Attack - Shield bash which deals 10 dmg.
-        Protect (once per 3 turns) - Takes 50% of damage inflicted to Shield User.
-        Party Grace (once per 7 turns) - Protects all party members from damage.
-
-        Run - Party member leaves battle.
-
-        Assist - Raise health by 1500 hp for one party member.
-        -----------------------------------------------------------------------
-        **/
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Menu {
@@ -45,14 +10,12 @@ public class Menu {
         options.add("Choose Attack");
         options.add("Choose Run");
         options.add("Choose Assist");
+        options.add("About Members");
     }
 
     //The method below is the intro message that shows up above the menu.
     private static String optMessage = """
-            Your team has entered an undiscovered cave entrance and goes inside to take a safe and short rest in the night. All of you have been travelling on a long voyage to seek wealth and power. Unknowingly, they just stepped into the domain of a long gone ancient king called Mammon. Demon King Mammon was a demon that caused calamities wherever it went, by cursing crowds of people and royalty with excessive greed and causing them to go insane. The number of people affected were in the millions and caused families and communities to dissolve. Fortunately, a mysterious hero came from lands far away had happen to come face to face with the beast. His presence lifted the cursed of anyone around him and his weapon, a sword that seemingly bursted out with holy power, cut the beast until no parts of it were left. The hero soon disappeared using magical means that were too advanced for anyone to comprehend, and kingdoms and villages were left to recover for the next century. It has been more than 500 years since the great demon was put to rest, and all the power of the kingdoms and nations had grown even stronger. Old tales remind explorers of the vast riches the demon left behind in its resting grounds that it collected from battlefields it never joined, but won regardless. Whether these tales were myths or not, did not stop hundreds of thousands of adventurers from searching for the ancient beast’s riches all throughout the land.The team of three knew about this story in the back of their mind, but never considered trying to find the grounds as it   seemed impossible for the fact that no-one has discovered such a place for centuries.\s
-            They continued deeper into the cave, to eventually face a dead end and settle down. But before they had a chance, a black blob slowly creeped out from a small crevice at the ceiling of the bottom of the cave. The trio took their stances, ready to engage in a fight as the 8 feet tall and 8 feet wide black slime blocked their way out of the cave. Once fully formed, the trio could see jewels, gold coins and other treasures stuck deep in the black slime’s translucent body. Before the trio could consider the riches they may obtain, they moved slightly forward and engaged in a battle
-                        
-            BATTLE ENGAGE!\s
+           \s
                         
             Store and access details of the options and actions of the members in the party and also details about foe.
             \tMenu Options
@@ -77,11 +40,12 @@ public class Menu {
                 System.out.println("Press any Enter key to continue");
                 scanner.nextLine();
             }
+            // switch case to prompt user to input option chosen
             switch (option) {
                 case 1 -> menuEnterChooseAttack();
                 case 2 -> menuEnterChooseRun();
                 case 3 -> menuEnterChooseAssist();
-                case 4 -> menuEnterDisplayStats();
+                case 4 -> menuAboutMembers();
                 default -> System.out.printf("Option %d not recognizable%n", option);
             }
             System.out.println("Press any Enter key to see menu again");
@@ -93,49 +57,141 @@ public class Menu {
         System.out.println("Thank you for playing!");
     }
 
-    private static void menuEnterDisplayStats()
-    {
+
+    /**
+     * used to display description about each member
+     *
+     */
+    private static void menuAboutMembers() {
+        int count = 0;
+        System.out.println("1.Potioneer");
+        System.out.println(Data.AboutMembers(1));
+        System.out.println("2.Swordsman");
+        System.out.println(Data.AboutMembers(2));
+        System.out.println("3.Shield User");
+        System.out.println(Data.AboutMembers(1));
+    }
+
+    /**
+     * Used to stats of each member
+     *
+     */
+    private static void menuEnterDisplayStats() {
+        System.out.println(Data.displayStat("Potioneer"));
+        System.out.println(Data.displayStat("Swordsman"));
+        System.out.println(Data.displayStat("Shield User"));
+        System.out.println("------------------------------------------");
+
+    }
+
+
+
+    /**
+     * Used to choose assist on member
+     *
+     */
+    private static void menuEnterChooseAssist() {
+        menuEnterDisplayStats();
         boolean success = false;
         while (!success) {
-            System.out.println("Which member would you like me to display stats for?");
+            System.out.println("Enter the member to assist:");
             String member = scanner.nextLine();
-            System.out.println(Data.displayStat(member));
-            System.out.println("Would you like me to display stats for another member? (1- Yes, 2-No)");
-            int answer = scanner.nextInt();
-            if (answer == 2)
+            System.out.println();
+            System.out.println("Enter the attack type:");
+            int attack = Integer.parseInt(scanner.nextLine());
+            if (validateMember(member) && validateAttack(attack))
             {
-                success = true;
+                success = Data.storeAssist(member, attack);
             }
+            else
+            {
+                System.out.println("Error: please enter valid member and attack. Please press enter and try again.");
+                System.out.println();
+            }
+        }
+    }
+
+
+    /**
+     * Used to choose a member to run
+     *
+     */
+    private static void menuEnterChooseRun() {
+        menuEnterDisplayStats();
+        boolean success = false;
+        while (!success) {
+            System.out.println("Enter the member to run:");
+            String member = scanner.nextLine();
+            if (validateMember(member)) {
+                boolean runSuccess = Data.storeRun(member,0);
+                success = runSuccess;
+                System.out.printf("Run success: %b%n", runSuccess);
+            }
+            else {
+                System.out.println("Error: please enter valid member. Please press enter and try again.");
+                System.out.println();
+            }
+
+        }
+    }
+
+    /**
+     * Used to choose member and attack
+     *
+     */
+    private static void menuEnterChooseAttack()
+    {
+        menuEnterDisplayStats();
+        boolean success = false;
+        String member;
+        while (!success)
+        {
+            System.out.println("Enter the member and attack type:");
+            member = scanner.nextLine();
+            int attackType = Integer.parseInt(scanner.nextLine());
+            if (validateMember(member) && validateAttack(attackType))
+            {
+                success = Data.storeAttack(member, attackType);
+                System.out.println(success);
+                System.out.println();
+            }
+            else
+            {
+                System.out.println("Error: please enter valid member and attack. Please press enter and try again.");
+                System.out.println();
+            }
+        }
+    }
+
+    /**
+     * Used to validate user input of attack
+     *
+     * @param attack the  number the user has input which corresponds to the attack type
+     * @return true if input is valid
+     */
+    private static boolean validateAttack(int attack) {
+        if (attack == 1 || attack == 2 || attack == 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Used to validate user input of attack
+     *
+     * @param member the  number the user has input which corresponds to the attack type
+     * @return true if input is valid
+     */
+    private static boolean validateMember(String member) {
+        if (member.equals("Potioneer") || member.equals("Swordsman") || member.equals("Shield User")) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
 
-
-private static void menuEnterChooseAssist() {
-    boolean success = false;
-    while (!success) {
-        System.out.println("Enter the member to assist:");
-        String member = scanner.nextLine();
-        success = Data.storeAssist(member);
-    }
-}
-
-private static void menuEnterChooseRun() {
-    System.out.println("Enter the member to run:");
-    String member = scanner.nextLine();
-    boolean runSuccess = Data.storeRun();
-    System.out.printf("Run success: %b%n", runSuccess);
-}
-
-private static void menuEnterChooseAttack() {
-    boolean success = false;
-    while (!success) {
-        System.out.println("Enter the member and attack type:");
-        String member = scanner.nextLine();
-        String attackType = scanner.nextLine();
-        success = Data.storeAttack(attackType);
-    }
-}
 
 
 
