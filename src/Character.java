@@ -1,57 +1,53 @@
-public abstract class Character {
+public abstract class Character
+{
+    private String name;
+    private int atk;
+    private int hp;
+    private int def;
+    private CharacterType type;
 
-    protected String name;
-    protected int hp;
-    protected int atk;
-    protected int def;
-    protected CharacterType type;
-
-    /**
-     * Constructs a Character object with the specified attributes.
-     *
-     * @param name name
-     * @param hp health
-     * @param atk attack
-     * @param def defense
-     * @param type class
-     */
-    public Character(String name, int hp, int atk, int def, CharacterType type) {
-        this.name = name;
-        this.hp = hp;
-        this.atk = atk;
-        this.def = def;
-        this.type = type;
+    public Character(String name, int hp, int atk, int def, CharacterType characterType)
+    {
+            this.name = name;
+            this.atk = atk;
+            this.hp = hp;
+            this.def = def;
+            this.type = characterType;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getHp() {
-        return hp;
-    }
-
-    public int getAtk() {
+    protected int setAtk()
+    {
         return atk;
     }
 
-    public int getDef() {
+    protected void setHp()
+    {
+
+    }
+
+    protected void setDef()
+    {
+
+    }
+
+    protected int getAtk()
+    {
+        return atk;
+    }
+
+    protected int getHp()
+    {
+        return hp;
+    }
+
+    protected int getDef()
+    {
         return def;
     }
 
-    public CharacterType getType() {
-        return type;
-    }
 
-    public void setHp(int newHp) {
-        this.hp = newHp;
-    }
 
-    public void setAtk(int newAtk) {
-        this.atk = newAtk;
-    }
 
-    public void setDef(int newDef) {
-        this.def = newDef;
-    }
 }
+
+
