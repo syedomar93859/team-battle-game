@@ -96,22 +96,22 @@ public class Menu {
                     switch (type) {
                         case "HEALER":
                             CharacterType healer = CharacterType.valueOf(type);
-                            newCharacter = new Healer(name, hp, atk, def, healer);
+                            newCharacter = new Healer(name, hp, atk, def);
                             characterList.add(newCharacter);
                             break;
                         case "MARKSMAN":
                             CharacterType marksman = CharacterType.valueOf(type);
-                            newCharacter = new Marksman(name, hp, atk, def, marksman);
+                            newCharacter = new Marksman(name, hp, atk, def);
                             characterList.add(newCharacter);
                             break;
                         case "SWORDSMAN":
                             CharacterType swordsman = CharacterType.valueOf(type);
-                            newCharacter = new Swordsman(name, hp, atk, def, swordsman);
+                            newCharacter = new Swordsman(name, hp, atk, def);
                             characterList.add(newCharacter);
                             break;
                         case "SHIELDUSER":
                             CharacterType shielduser = CharacterType.valueOf(type);
-                            newCharacter = new ShieldUser(name, hp, atk, def, shielduser);
+                            newCharacter = new ShieldUser(name, hp, atk, def);
                             characterList.add(newCharacter);
                             break;
                         default:
