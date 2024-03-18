@@ -10,9 +10,9 @@ public abstract class Character {
      * Constructs a Character object with the specified attributes.
      *
      * @param name name
-     * @param hp health
-     * @param atk attack
-     * @param def defense
+     * @param hp   health
+     * @param atk  attack
+     * @param def  defense
      * @param type class
      */
     public Character(String name, int hp, int atk, int def, CharacterType type) {
@@ -54,4 +54,9 @@ public abstract class Character {
     public void setDef(int newDef) {
         this.def = newDef;
     }
+
+    public void setType(CharacterType newType) {
+        this.type = newType;
+    }
 }
+

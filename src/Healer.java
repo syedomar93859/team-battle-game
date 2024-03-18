@@ -1,6 +1,6 @@
 class Healer extends Character {
 
-    public Healer(String name, int hp, int atk, int def, CharacterType type) {
+    public Healer(String name, int hp, int atk, int def) {
 
         super(name, hp, atk, def, CharacterType.HEALER);
 
