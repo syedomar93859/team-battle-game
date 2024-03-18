@@ -1,16 +1,48 @@
-import javax.swing.*;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
+
 public class Menu {
     public static final Scanner scanner;
     public static final ArrayList<String> options;
-    private static String optMessage;
 
-    public Menu() {
+    static {
+        scanner = new Scanner(System.in);
+        options = new ArrayList();
+        options.add("Exit");
+        options.add("Create Team");
+        options.add("Add a character");
+        options.add("Update atk for character");
+        options.add("Update def for character");
+        options.add("Update hp for character");
+        options.add("Update class for character");
+        options.add("About Members");
+        options.add("Determine boss's atk based on number of characters in a team");
+        options.add("Ask for the top 3 members based on atk from different classes");
+        options.add("Recommend a lineup of 4 based on hp and def");
+        options.add("Determine damage value");
     }
 
-    public static void menuLoop() {
+    //The method below is the intro message that shows up above the menu.
+    private static String optMessage = """
+           \s
+                        
+            Store and access details of the options and actions of the members in the party and also details about foe.
+            \tMenu Options
+            """;
+
+    static {
+        StringBuilder sb = new StringBuilder();
+        sb.append(optMessage);
+        for (int i = 0; i < options.size(); i++) {
+            sb.append(String.format("\t%d. %s\n", i, options.get(i)));
+        }
+        optMessage = sb.toString();
+    }
+
+
+    public static void menuLoop () {
+
+        List<Character> characterList = new ArrayList<>();
+        Map<String, List<Character>> teams = new HashMap<>();
         System.out.println(optMessage);
         String choice = scanner.nextLine();
 
@@ -23,18 +55,129 @@ public class Menu {
 
             switch (option) {
                 case 1:
-                    createTeam();
+                    if (characterList.isEmpty()) {
+                        System.out.println("No characters available. Please create a character first.");
+                    } else {
+                        System.out.println("Enter the team's name:");
+                        String teamName = scanner.nextLine();
+                        List<Character> team = new ArrayList<>();
+                        String addMore;
+                        do {
+                            System.out.println("Enter the name of the character you want to add to the team:");
+                            String characterName = scanner.nextLine();
+                            for (Character character : characterList) {
+                                if (character.getName().equals(characterName)) {
+                                    team.add(character);
+                                    break;
+                                }
+                            }
+                            System.out.println("Do you want to add more characters? (yes/no)");
+                            addMore = scanner.nextLine();
+                        } while (addMore.equals("yes"));
+                        Team newTeam = Team.createTeam(teamName, team);
+                        teams.put(newTeam.getName(), newTeam.getMembers());
+                    }
                     break;
+
 
                 case 2:
+                    System.out.println("Choose the character's type (HEALER, MARKSMAN, SWORDSMAN, SHIELDUSER):");
+                    String type = scanner.nextLine();
+                    System.out.println("Enter the new character's name:");
+                    String name = scanner.nextLine();
+                    System.out.println("Enter the character's hp:");
+                    int hp = scanner.nextInt();
+                    System.out.println("Enter the character's atk:");
+                    int atk = scanner.nextInt();
+                    System.out.println("Enter the character's def:");
+                    int def = scanner.nextInt();
+                    Character newCharacter;
+
+                    switch (type) {
+                        case "HEALER":
+                            CharacterType healer = CharacterType.valueOf(type);
+                            newCharacter = new Healer(name, hp, atk, def, healer);
+                            characterList.add(newCharacter);
+                            break;
+                        case "MARKSMAN":
+                            CharacterType marksman = CharacterType.valueOf(type);
+                            newCharacter = new Marksman(name, hp, atk, def, marksman);
+                            characterList.add(newCharacter);
+                            break;
+                        case "SWORDSMAN":
+                            CharacterType swordsman = CharacterType.valueOf(type);
+                            newCharacter = new Swordsman(name, hp, atk, def, swordsman);
+                            characterList.add(newCharacter);
+                            break;
+                        case "SHIELDUSER":
+                            CharacterType shielduser = CharacterType.valueOf(type);
+                            newCharacter = new ShieldUser(name, hp, atk, def, shielduser);
+                            characterList.add(newCharacter);
+                            break;
+                        default:
+                            System.out.println("Invalid character type. Please try again.");
+                            return;
+                    }
+                    System.out.println("Character " + name + " has been created.");
 
                     break;
+
                 case 3:
-
+                    System.out.println("Enter the character's name:");
+                    name = scanner.nextLine();
+                    System.out.println("Enter the new attack value:");
+                    int newAtk = scanner.nextInt();
+                    for (Character character : characterList) {
+                        if (character.getName().equals(name)) {
+                            character.setAtk(newAtk);
+                            System.out.println("Character " + name + "'s attack has been updated.");
+                            break;
+                        }
+                    }
                     break;
+
                 case 4:
-
+                    System.out.println("Enter the character's name:");
+                    name = scanner.nextLine();
+                    System.out.println("Enter the new defense value:");
+                    int newDef = scanner.nextInt();
+                    for (Character character : characterList) {
+                        if (character.getName().equals(name)) {
+                            character.setDef(newDef);
+                            System.out.println("Character " + name + "'s defense has been updated.");
+                            break;
+                        }
+                    }
                     break;
+
+                case 5:
+                    System.out.println("Enter the character's name:");
+                    name = scanner.nextLine();
+                    System.out.println("Enter the new health value:");
+                    int NewHp = scanner.nextInt();
+                    for (Character character : characterList) {
+                        if (character.getName().equals(name)) {
+                            character.setHp(NewHp);
+                            System.out.println("Character " + name + "'s health has been updated.");
+                            break;
+                        }
+                    }
+                    break;
+
+                case 6:
+                    System.out.println("Enter the character's name:");
+                    name = scanner.nextLine();
+                    System.out.println("Choose the character's type (HEALER, MARKSMAN, SWORDSMAN, SHIELDUSER):");
+                    String newType = scanner.nextLine();
+                    for (Character character : characterList) {
+                        if (character.getName().equals(name)) {
+                            character.setType(CharacterType.valueOf(newType));
+                            System.out.println("Character " + name + "'s type has been updated.");
+                            break;
+                        }
+                    }
+                    break;
+
                 default:
                     System.out.printf("Option %d not recognizable%n", option);
             }
@@ -44,143 +187,15 @@ public class Menu {
             System.out.println(optMessage);
             choice = scanner.nextLine();
         }
-
-        System.out.println("Thank you for playing!");
     }
 
-    static {
-        scanner = new Scanner(System.in);
-        options = new ArrayList();
-        options.add("Exit");
-        options.add("Create Team");
-        options.add("Manage Team");
-        options.add("About Members");
-        optMessage = " \n\n Store and access details of the options and actions of the members in the party and also details about foe.\n \tMenu Options\n";
-        StringBuilder sb = new StringBuilder();
-        sb.append(optMessage);
-
-        for (int i = 0; i < options.size(); ++i) {
-            sb.append(String.format("\t%d. %s\n", i, options.get(i)));
-        }
-
-        optMessage = sb.toString();
-    }
-
-    public static void createTeam() {
-        if (!existingTeam()) {
-            //initialize new team within an arrayList
-        } else {
-            System.out.println("Error, there is already an existing team. Press enter to return back to menu");
-            scanner.nextLine();
-        }
-
-    }
-
-    public static boolean existingTeam() {
-        //there is an existing team return true or return false
-        return false;
-    }
-
-
-    public static void ManageTeamMenu() {
-        System.out.println("1. Create New Character");
-        System.out.println("2. Remove Character");
-        System.out.println("3. Edit Current Character");
-        int option = scanner.nextInt();
-        switch (option) {
-            case 1:
-                addCharacter();
-                break;
-
-            case 2:
-                removeCharacter();
-                break;
-
-            case 3:
-                editCurrentCharacter();
-                break;
-        }
-
-    }
-
-
-    public static void addCharacter() {
-        if (!filledTeams())
-        {
-            System.out.println("Pick a character to add:");
-            System.out.println("1. Healer");
-            System.out.println("2. Marksman");
-            System.out.println("3. Swordsman");
-            System.out.println("4. ShieldUser");
-            int characterOption = scanner.nextInt();
-            if (!CheckCharacter(characterOption))
-            {
-                //add character here
-                System.out.println("Success! Member has been added.");
-                scanner.nextLine();
-            }
-            else
-            {
-                System.out.println("Member already exists. Please enter to return back to menu.");
-                scanner.nextLine();
-            }
-        }
-        else
-        {
-            System.out.println("Error, team is full. Press enter to return back to menu");
-            scanner.nextLine();
-        }
-    }
-
-    public static boolean filledTeams() {
+    public static boolean filledTeams () {
         //if the team is filled (member number equal to 4) then return true else return false
         return false;
     }
 
 
-    public static void removeCharacter() {
-        System.out.println("1. Healer");
-        System.out.println("2. Marksman");
-        System.out.println("3. Swordsman");
-        System.out.println("4. ShieldUser");
-        int option = scanner.nextInt();
-        if (CheckCharacter(option))
-        {
-            // removeCharacter()
-        }
-        else {
-            System.out.println("Error, there is no healer in current team");
-        }
-    }
-
-
-    public static void editCurrentCharacter() {
-        System.out.println("Pick a character to edit:");
-        System.out.println("1. Healer");
-        System.out.println("2. Marksman");
-        System.out.println("3. Swordsman");
-        System.out.println("4. ShieldUser");
-        int characterOption = scanner.nextInt();
-
-        if (CheckCharacter(characterOption))
-        {
-            System.out.println("Pick what to add:");
-            System.out.println("1. add atk");
-            System.out.println("2. add hp");
-            System.out.println("3. add defense");
-            int addOption = scanner.nextInt();
-        }
-    }
-
-
-    public static void add(int addOption)
-    {
-
-    }
-
-
-
-    public static boolean CheckCharacter (int option)
+    public static boolean CheckCharacter ( int option)
     {
         switch (option) {
             case 1:
@@ -199,6 +214,4 @@ public class Menu {
         return false;
     }
 }
-//commit
-
 
