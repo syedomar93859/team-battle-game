@@ -195,6 +195,7 @@ public class Menu {
         boolean exists = false;
         switch (option) {
             case 1:
+                // check if there is a Healer in team already
                 for (Character character : characterList) {
                     if (character.getType() == CharacterType.HEALER) {
                         exists = true;
@@ -202,6 +203,7 @@ public class Menu {
                     }
                 }
             case 2:
+                // check if there is a Marksman in team already
                 for (Character character : characterList) {
                     if (character.getType() == CharacterType.MARKSMAN) {
                         exists = true;
