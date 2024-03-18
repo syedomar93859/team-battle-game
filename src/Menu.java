@@ -23,11 +23,11 @@ public class Menu {
 
     //The method below is the intro message that shows up above the menu.
     private static String optMessage = """
-           \s
-                        
-            Store and access details of the options and actions of the members in the party and also details about foe.
-            \tMenu Options
-            """;
+            \s
+                         
+             Store and access details of the options and actions of the members in the party and also details about foe.
+             \tMenu Options
+             """;
 
     static {
         StringBuilder sb = new StringBuilder();
@@ -39,7 +39,7 @@ public class Menu {
     }
 
 
-    public static void menuLoop () {
+    public static void menuLoop() {
 
         List<Character> characterList = new ArrayList<>();
         Map<String, List<Character>> teams = new HashMap<>();
@@ -189,29 +189,48 @@ public class Menu {
         }
     }
 
-    public static boolean filledTeams () {
-        //if the team is filled (member number equal to 4) then return true else return false
-        return false;
-    }
 
 
-    public static boolean CheckCharacter ( int option)
-    {
+    public static boolean CheckCharacter(int option, List<Character> characterList) {
+        boolean exists = false;
         switch (option) {
             case 1:
-                // check if there is a Healer in team already
-                return true;
+                for (Character character : characterList) {
+                    if (character.getType() == CharacterType.HEALER) {
+                        exists = true;
+                        break;
+                    }
+                }
             case 2:
-                // check if there is a Marksman in team already
-                return true;
+                for (Character character : characterList) {
+                    if (character.getType() == CharacterType.MARKSMAN) {
+                        exists = true;
+                        break;
+                    }
+                }
+
             case 3:
                 // check if there is a Swordsman in team already
-                return true;
+                for (Character character : characterList) {
+                    if (character.getType() == CharacterType.SWORDSMAN) {
+                        exists = true;
+                        break;
+                    }
+                }
+
             case 4:
                 // check if there is a ShieldUser in team already
-                return true;
+                for (Character character : characterList) {
+                    if (character.getType() == CharacterType.SHIELDUSER) {
+                        exists = true;
+                        break;
+                    }
+                }
+
+            default:
+                System.out.println("Invalid option.");
+                break;
         }
-        return false;
+        return exists;
     }
 }
-
