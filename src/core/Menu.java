@@ -1,3 +1,9 @@
+package core;
+
+import core.*;
+import core.Character;
+
+import java.io.File;
 import java.util.*;
 
 public class Menu {
@@ -8,7 +14,7 @@ public class Menu {
         scanner = new Scanner(System.in);
         options = new ArrayList();
         options.add("Exit");
-        options.add("Create Team");
+        options.add("Create core.Team");
         options.add("Add a character");
         options.add("Update atk for character");
         options.add("Update def for character");
@@ -19,6 +25,8 @@ public class Menu {
         options.add("Ask for the top 3 members based on atk from different classes");
         options.add("Recommend a lineup of 4 based on hp and def");
         options.add("Determine damage value");
+        options.add("Save data to file");
+        options.add("Load data to file");
     }
 
     //The method below is the intro message that shows up above the menu.
@@ -71,9 +79,9 @@ public class Menu {
                                     break;
                                 }
                             }
-                            System.out.println("Do you want to add more characters? (yes/no)");
+                            System.out.println("If you want to add more characters press 'y', else press any key.");
                             addMore = scanner.nextLine();
-                        } while (addMore.equals("yes"));
+                        } while (addMore.equals("y"));
                         Team newTeam = Team.createTeam(teamName, team);
                         teams.put(newTeam.getName(), newTeam.getMembers());
                     }
@@ -95,30 +103,26 @@ public class Menu {
 
                     switch (type) {
                         case "HEALER":
-                            CharacterType healer = CharacterType.valueOf(type);
-                            newCharacter = new Healer(name, hp, atk, def, healer);
+                            newCharacter = new Healer(name, hp, atk, def);
                             characterList.add(newCharacter);
                             break;
                         case "MARKSMAN":
-                            CharacterType marksman = CharacterType.valueOf(type);
-                            newCharacter = new Marksman(name, hp, atk, def, marksman);
+                            newCharacter = new Marksman(name, hp, atk, def);
                             characterList.add(newCharacter);
                             break;
                         case "SWORDSMAN":
-                            CharacterType swordsman = CharacterType.valueOf(type);
-                            newCharacter = new Swordsman(name, hp, atk, def, swordsman);
+                            newCharacter = new Swordsman(name, hp, atk, def);
                             characterList.add(newCharacter);
                             break;
                         case "SHIELDUSER":
-                            CharacterType shielduser = CharacterType.valueOf(type);
-                            newCharacter = new ShieldUser(name, hp, atk, def, shielduser);
+                            newCharacter = new ShieldUser(name, hp, atk, def);
                             characterList.add(newCharacter);
                             break;
                         default:
                             System.out.println("Invalid character type. Please try again.");
                             return;
                     }
-                    System.out.println("Character " + name + " has been created.");
+                    System.out.println("core.Character " + name + " has been created.");
 
                     break;
 
@@ -130,7 +134,7 @@ public class Menu {
                     for (Character character : characterList) {
                         if (character.getName().equals(name)) {
                             character.setAtk(newAtk);
-                            System.out.println("Character " + name + "'s attack has been updated.");
+                            System.out.println("core.Character " + name + "'s attack has been updated.");
                             break;
                         }
                     }
@@ -144,7 +148,7 @@ public class Menu {
                     for (Character character : characterList) {
                         if (character.getName().equals(name)) {
                             character.setDef(newDef);
-                            System.out.println("Character " + name + "'s defense has been updated.");
+                            System.out.println("core.Character " + name + "'s defense has been updated.");
                             break;
                         }
                     }
@@ -158,7 +162,7 @@ public class Menu {
                     for (Character character : characterList) {
                         if (character.getName().equals(name)) {
                             character.setHp(NewHp);
-                            System.out.println("Character " + name + "'s health has been updated.");
+                            System.out.println("core.Character " + name + "'s health has been updated.");
                             break;
                         }
                     }
@@ -172,30 +176,56 @@ public class Menu {
                     for (Character character : characterList) {
                         if (character.getName().equals(name)) {
                             character.setType(CharacterType.valueOf(newType));
-                            System.out.println("Character " + name + "'s type has been updated.");
+                            System.out.println("core.Character " + name + "'s type has been updated.");
                             break;
                         }
                     }
                     break;
 
+                case 7:
+                    System.out.println("Would you like to view members (1) or teams? (2)");
+                    int t = scanner.nextInt();
+                    if (t == 1) {
+                        if (characterList.isEmpty()) {
+                            System.out.println("No characters available. Please create a character first.");
+                        } else {
+                            System.out.print(characterList);
+                        }
+                    } else if (t == 2) {
+                        if (teams.isEmpty()) {
+                            System.out.println("No teams available. Please create a team first.");
+                        } else {
+                            System.out.print(teams);
+                        }
+                    } else {
+                        System.out.println("Invalid entry.");
+                    }
+                    break;
+
+                case 8:
+                    load(characterList, teams);
+                    break;
+                case 9:
+                    save(characterList, teams);
+                    break;
+
+
                 default:
                     System.out.printf("Option %d not recognizable%n", option);
             }
 
-            System.out.println("Press any Enter key to see menu again");
+            System.out.println("\nPress any Enter key to see menu again");
             scanner.nextLine();
             System.out.println(optMessage);
             choice = scanner.nextLine();
         }
     }
 
-
-
     public static boolean CheckCharacter(int option, List<Character> characterList) {
         boolean exists = false;
         switch (option) {
             case 1:
-                // check if there is a Healer in team already
+                // check if there is a core.Healer in team already
                 for (Character character : characterList) {
                     if (character.getType() == CharacterType.HEALER) {
                         exists = true;
@@ -203,7 +233,7 @@ public class Menu {
                     }
                 }
             case 2:
-                // check if there is a Marksman in team already
+                // check if there is a core.Marksman in team already
                 for (Character character : characterList) {
                     if (character.getType() == CharacterType.MARKSMAN) {
                         exists = true;
@@ -235,4 +265,35 @@ public class Menu {
         }
         return exists;
     }
+
+    private static void save(List<Character> characterList, Map<String, List<Character>> teams) {
+        String filename;
+        File file;
+        do {
+            System.out.println("Enter a filename:");
+            filename = scanner.nextLine().trim();
+            file = new File(filename);
+        } while (file.exists() && !file.canWrite());
+
+        boolean success = FileSaver.save(file, characterList, teams);
+        if (success) {
+            System.out.println("Data saved successfully to " + filename);
+        } else {
+            System.out.println("Failed to save data to " + filename);
+        }
+    }
+
+    private static void load(List<Character> characterList, Map<String, List<Character>> teams) {
+        String filename;
+        File file;
+        do {
+            System.out.println("Enter a filename:");
+            filename = scanner.nextLine().trim();
+            file = new File(filename);
+        } while (!file.exists() || !file.canRead());
+
+        FileLoader.load(file, characterList, teams);
+    }
 }
+
+
