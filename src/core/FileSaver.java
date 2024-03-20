@@ -1,3 +1,9 @@
+/**
+ *  Arfa Raja, Nethanya Dhaipule, Syed Omar
+ *  March 20, 2024
+ *  T09
+ */
+
 package core;
 
 import java.io.File;
@@ -8,7 +14,11 @@ import java.util.Map;
 
 public class FileSaver {
 
-    // Method to save character data and team data to a CSV file
+    /**
+     * Method to save character data and team data to a CSV file
+     *
+     * @return true if save successful, false if not
+     */
     public static boolean save(File file, List<Character> characterList, Map<String, List<Character>> teams) {
         try (FileWriter fw = new FileWriter(file)) {
             // Save characters
