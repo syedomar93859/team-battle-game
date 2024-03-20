@@ -33,10 +33,10 @@ public class FileLoader {
         while ((line = br.readLine()) != null && !line.equals("")) {
             String[] parts = line.split(",");
             String name = parts[0];
-            int hp = Integer.parseInt(parts[1]);
-            int atk = Integer.parseInt(parts[2]);
-            int def = Integer.parseInt(parts[3]);
-            CharacterType type = CharacterType.valueOf(parts[4]);
+            CharacterType type = CharacterType.valueOf(parts[1]);
+            int hp = Integer.parseInt(parts[2]);
+            int atk = Integer.parseInt(parts[3]);
+            int def = Integer.parseInt(parts[4]);
             Character character = createCharacter(name, hp, atk, def, type);
             characterList.add(character);
         }

@@ -14,8 +14,8 @@ public class Menu {
         scanner = new Scanner(System.in);
         options = new ArrayList();
         options.add("Exit");
-        options.add("Create core.Team");
-        options.add("Add a character");
+        options.add("Create Team");
+        options.add("Create Character");
         options.add("Update atk for character");
         options.add("Update def for character");
         options.add("Update hp for character");
@@ -26,7 +26,7 @@ public class Menu {
         options.add("Recommend a lineup of 4 based on hp and def");
         options.add("Determine damage value");
         options.add("Save data to file");
-        options.add("Load data to file");
+        options.add("Load data from file");
     }
 
     //The method below is the intro message that shows up above the menu.
@@ -202,13 +202,31 @@ public class Menu {
                     }
                     break;
 
+                /*
                 case 8:
-                    load(characterList, teams);
+                    Battlefield.CalculateBossAtk();
                     break;
+
                 case 9:
+                    Battlefield.AskTopThreeAtk();
+                    break;
+
+                case 10:
+                    Battlefield.HPAndDefLineup();
+                    break;
+
+                case 11:
+                    Battlefield.CalculateDamage(member);
+                    break;
+                 */
+
+                case 12:
                     save(characterList, teams);
                     break;
 
+                case 13:
+                    load(characterList, teams);
+                    break;
 
                 default:
                     System.out.printf("Option %d not recognizable%n", option);
@@ -295,5 +313,3 @@ public class Menu {
         FileLoader.load(file, characterList, teams);
     }
 }
-
-//commit
