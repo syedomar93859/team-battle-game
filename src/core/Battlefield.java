@@ -73,15 +73,17 @@ public class Battlefield{
      */
     public static void HPAndDefLineup(ArrayList<Character> characterList) {
         HashMap<String, Character> bestCharacters = new HashMap<String, Character>();
-
+        // iterates through characterList
         for (Character member : characterList) {
             String type = member.getType().toString();
+            // iterates through each type
             if (!bestCharacters.containsKey(type) ||
+                    // replaces member from same type if one has higher hp/def
                     (member.getHp() + member.getDef()) > (bestCharacters.get(type).getHp() + bestCharacters.get(type).getDef())) {
                 bestCharacters.put(type, member);
             }
         }
-
+        // prints the recommended lineup
         StringBuilder lineupDetails = new StringBuilder("The recommended lineup is:\n");
         for (Character member : bestCharacters.values()) {
             lineupDetails.append(member.getType() + " named " + member.getName() + " with " + member.getHp() + " HP and " + member.getDef() + " DEF.\n");
