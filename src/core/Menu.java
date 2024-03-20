@@ -1,7 +1,7 @@
 /**
  *  Arfa Raja, Nethanya Dhaipule, Syed Omar
  *  March 20, 2024
- *  T09
+ *  T12
  */
 
 package core;
@@ -32,7 +32,11 @@ public class Menu {
         options.add("Load data from file");
     }
 
-    //The method below is the intro message that shows up above the menu.
+
+    /**
+     *  The method below is the intro message that shows up above the menu.
+     *
+     */
     private static String optMessage = """
             \s
                          
