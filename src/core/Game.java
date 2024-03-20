@@ -3,8 +3,8 @@
  *  March 20, 2024
  *  T12
  */
-
 package core;
+
 
 public class Game {
     public Game() {
@@ -19,3 +19,4 @@ public class Game {
         Menu.menuLoop();
     }
 }
+

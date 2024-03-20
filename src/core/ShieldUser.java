@@ -6,6 +6,8 @@
 
 package core;
 
+
+
 class ShieldUser extends Character {
 
     /**
@@ -22,3 +24,4 @@ class ShieldUser extends Character {
 
     }
 }
+
