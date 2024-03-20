@@ -4,3 +4,4 @@ public enum CharacterType {
     SWORDSMAN,
     SHIELDUSER
 }
+
