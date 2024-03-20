@@ -14,9 +14,10 @@ public class Battlefield{
 
     }
 
-    /**CalculateBossAtk calculates how much damage the boss deals based on a random integer between
-     * 11 and 0.
+    /**
+     * CalculateBossAtk calculates how much damage the boss deals based on a random integer between 11 and 0.
      *
+     * @return int with boss's damage
      */
     public Integer CalculateBossAtk(){
         Random rand = new Random();
@@ -25,19 +26,20 @@ public class Battlefield{
         return randomMultiplier * 1000;
     }
 
-    /**AskTopThreeAtk goes through every party member to determine which are 3 highest dealing
-     * damage members. It goes through an arraylist filled with all the members of party, and gets
-     * each member's type and attack. The type and attack of each member are stored as pairs in the
-     * partyDamage hashmap. Then all the details in partyDamage are used to fill and alter an array
-     * called TopThreeMembers with the 3 members that deal the most amount of damage. Finally,
-     * TopThreeMembers is used to print the 3 members who have the highest attack power.
+    /**
+     * AskTopThreeAtk goes through every party member to determine which are 3 highest dealing damage members.
+     *
      */
     public void AskTopThreeAtk(ArrayList partyDetails) {
         HashMap<String, Integer> partyDamage = new HashMap<String, Integer>();
+        // It goes through an arraylist filled with all the members of party, and gets each member's type and attack.
         for (int memberIndex = 0; memberIndex < partyDetails.size(); memberIndex++) {
             Object member = partyDetails.get(memberIndex);
-            partyDamage.put(member.getType, member.getAtk());
+            //  The type and attack of each member are stored as pairs in the partyDamage hashmap.
+            partyDamage.put(member.getType(), member.getAtk());
         }
+        // Then all the details in partyDamage are used to fill and alter an array called TopThreeMembers
+        // with the 3 members that deal the most amount of damage.
         String[] TopThreeMembers = new String[partyDetails.size()];
         ArrayList allMembers = new ArrayList(partyDamage.keySet());
         ArrayList allMemberDamage = new ArrayList(partyDamage.values());
@@ -80,6 +82,7 @@ public class Battlefield{
                 TopThreeMembers[1] = movedHighDetails;
                 TopThreeMembers[2] = memberDetails;
             }
+            // Finally, TopThreeMembers is used to print the 3 members who have the highest attack power.
             String Top3Details = "The members who deal the most damage are:\n";
             for (int memberSelection = 0; memberSelection < TopThreeMembers.length; memberSelection++) {
                 String[] selectedMemberDetails = TopThreeMembers[memberSelection].split(":");
@@ -90,21 +93,24 @@ public class Battlefield{
         }
     }
 
-    /**HPAndDefLineup is a method use to print out the health and defense of each member. This is done
-     *using a for loop to loop through every member in partyDetails and get their type, hp and defense.
-     * The line that needs to be printed for each member is appended to gridDetails. In the end,
-     * gridDetails is printed.
+    /**
+     * HPAndDefLineup is a method use to print out the health and defense of each member.
      */
-    public void HPAndDefLineup(ArrayList partyDetails) {
+    public String HPAndDefLineup(ArrayList partyDetails) {
         StringBuilder gridDetails = new StringBuilder();
+        //  This is done using a for loop to loop through every member in partyDetails and get their type, hp and defense.
         for (int memberIndex = 0 ; memberIndex < partyDetails.size() ; memberIndex++){
             Object member = partyDetails.get(memberIndex);
+            // The line that needs to be printed for each member is appended to gridDetails.
             gridDetails.append(member.getType() + " currently has " + member.hp + " health points and " + member.getDef + " defense.\n");
-        }System.out.println(gridDetails);
+        } // In the end,gridDetails is printed.
+        System.out.println(gridDetails);
     }
 
-    /**The CalculateDamage method calculates the damage dealt by a member, using their class and
-     * sometimes a multiplier.
+    /**
+     * The CalculateDamage method calculates the damage dealt by a member, using their class and sometimes a multiplier.
+     *
+     * @return int damage from member
      */
     public int CalculateDamage(Object partyMember) {
         if (partyMember.getType() == "HEALER"){
