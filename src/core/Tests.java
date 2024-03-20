@@ -7,8 +7,15 @@
 package core;
 
 import org.junit.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class Tests {
@@ -79,15 +86,66 @@ public class Tests {
     }
 
     // Test for FileLoader functionality
-    @Test
+    @Test // says contents are identical...
     public void testFileLoader() {
+        // Initialize the characterList and teams
+        List<Character> characterList = new ArrayList<>();
+        Map<String, List<Character>> teams = new HashMap<>();
 
+        // Provide the file to be loaded
+        File file = new File("TeamFile");
+
+        // Call the method to be tested
+        FileLoader.load(file, characterList, teams);
+
+        // Provide the expected results
+        List<Character> expectedCharacterList = new ArrayList<>();
+        expectedCharacterList.add(Character.createFileCharacter("A", 1, 1, 1, CharacterType.HEALER));
+        expectedCharacterList.add(Character.createFileCharacter("B", 2, 2, 2, CharacterType.MARKSMAN));
+        expectedCharacterList.add(Character.createFileCharacter("C", 3, 3, 3, CharacterType.SWORDSMAN));
+        expectedCharacterList.add(Character.createFileCharacter("D", 4, 4, 4, CharacterType.SHIELDUSER));
+
+        Map<String, List<Character>> expectedTeams = new HashMap<>();
+        expectedTeams.put("team", new ArrayList<>(expectedCharacterList)); // Assuming team has all characters
+
+        // Check if the characterList and teams match the expected results
+        assertEquals(expectedCharacterList, characterList);
+        assertEquals(expectedTeams, teams);
     }
 
     // Test for FileSaver functionality
     @Test
-    public void testFileSaver() {
+    public void testFileSaver() throws IOException {
+        // Initialize the characterList and teams
+        List<Character> characterList = new ArrayList<>();
+        characterList.add(Character.createFileCharacter("A", 1, 1, 1, CharacterType.HEALER));
+        characterList.add(Character.createFileCharacter("B", 2, 2, 2, CharacterType.MARKSMAN));
+        characterList.add(Character.createFileCharacter("C", 3, 3, 3, CharacterType.SWORDSMAN));
+        characterList.add(Character.createFileCharacter("D", 4, 4, 4, CharacterType.SHIELDUSER));
 
+        Map<String, List<Character>> teams = new HashMap<>();
+        teams.put("team", new ArrayList<>(characterList)); // Assuming team has all characters
+
+        // Create a temporary file
+        File tempFile = File.createTempFile("test", ".txt");
+
+        // Call the method to be tested
+        boolean result = FileSaver.save(tempFile, characterList, teams);
+
+        // Check if the method returned true
+        assertTrue(result);
+
+        // Now read the file and check if the contents are as expected
+        List<String> lines = Files.readAllLines(tempFile.toPath());
+        assertEquals("Characters", lines.get(0));
+        assertEquals("A,HEALER,1,1,1", lines.get(1));
+        assertEquals("B,MARKSMAN,2,2,2", lines.get(2));
+        assertEquals("C,SWORDSMAN,3,3,3", lines.get(3));
+        assertEquals("D,SHIELDUSER,4,4,4", lines.get(4));
+        assertEquals("", lines.get(5));
+        assertEquals("Teams", lines.get(6));
+        assertEquals("team,A;B;C;D;", lines.get(7));
     }
 }
+
 
