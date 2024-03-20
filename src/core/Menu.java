@@ -242,7 +242,6 @@ public class Menu {
                     }
                     break;
 
-                /*
                 case 8:
                     Battlefield.CalculateBossAtk();
                     break;
@@ -256,9 +255,16 @@ public class Menu {
                     break;
 
                 case 11:
-                    Battlefield.CalculateDamage(member);
+                    System.out.println("Enter the character's name:");
+                    name = scanner.nextLine();
+
+                    for (Character character : characterList) {
+                        if (character.getName().equals(name)) {
+                            Battlefield.CalculateDamage(character);
+                            break;
+                        }
+                    }
                     break;
-                 */
 
                 case 12:
                     // saves characterList and teams to file

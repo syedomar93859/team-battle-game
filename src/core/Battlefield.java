@@ -112,21 +112,18 @@ public class Battlefield{
      *
      * @return int damage from member
      */
-    public int CalculateDamage(Object partyMember) {
-        if (partyMember.getType() == "HEALER"){
-            int finalDamage = partyMember.getAtk();
-            return finalDamage;
-        }else if (partyMember.getType() == "SWORDSMAN"){
-            int finalDamage = partyMember.getAtk() * 1.5;
-            return finalDamage;
-        }else if (partyMember.getType() == "MARKSMAN"){
-            int finalDamage = partyMember.getAtk() * 1.15;
-            return finalDamage;
-        }else if (partyMember.getType() == "SHIELDUSER"){
-            int finalDamage = partyMember.getAtk();
-            return finalDamage;
+    public static int CalculateDamage(Character partyMember) {
+        double finalDamage = 0;
+        if (partyMember.getType() == CharacterType.HEALER){
+            finalDamage = partyMember.getAtk();
+        } else if (partyMember.getType() == CharacterType.SWORDSMAN){
+            finalDamage = partyMember.getAtk() * 1.5;
+        } else if (partyMember.getType() == CharacterType.MARKSMAN){
+            finalDamage = partyMember.getAtk() * 1.15;
+        } else if (partyMember.getType() == CharacterType.SHIELDUSER){
+            finalDamage = partyMember.getAtk();
         }
-        return 0;
+        return (int) Math.round(finalDamage);
     }
 
 }
