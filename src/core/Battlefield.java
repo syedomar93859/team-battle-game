@@ -69,17 +69,25 @@ public class Battlefield{
     }
 
     /**
-     * HPAndDefLineup is a method use to print out the health and defense of each member.
+     * HPAndDefLineup is a method that recommends a lineup of 4 characters, one from each type, based on the highest HP and DEF:
      */
     public static void HPAndDefLineup(ArrayList<Character> characterList) {
-        StringBuilder gridDetails = new StringBuilder();
-        //  This is done using a for loop to loop through every member in partyDetails and get their type, hp and defense.
-        for (int memberIndex = 0 ; memberIndex < characterList.size() ; memberIndex++){
-            Character member = (Character) characterList.get(memberIndex);
-            // The line that needs to be printed for each member is appended to gridDetails.
-            gridDetails.append(member.getType() + " currently has " + member.hp + " health points and " + member.def + " defense.\n");
-        } // In the end,gridDetails is printed.
-        System.out.println(gridDetails);
+        HashMap<String, Character> bestCharacters = new HashMap<String, Character>();
+
+        for (Character member : characterList) {
+            String type = member.getType().toString();
+            if (!bestCharacters.containsKey(type) ||
+                    (member.getHp() + member.getDef()) > (bestCharacters.get(type).getHp() + bestCharacters.get(type).getDef())) {
+                bestCharacters.put(type, member);
+            }
+        }
+
+        StringBuilder lineupDetails = new StringBuilder("The recommended lineup is:\n");
+        for (Character member : bestCharacters.values()) {
+            lineupDetails.append(member.getType() + " named " + member.getName() + " with " + member.getHp() + " HP and " + member.getDef() + " DEF.\n");
+        }
+
+        System.out.println(lineupDetails);
     }
 
     /**

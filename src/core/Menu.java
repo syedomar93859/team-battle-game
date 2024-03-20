@@ -242,20 +242,20 @@ public class Menu {
                     }
                     break;
 
-                case 8:
+                case 8: // Calculate Boss Attack
                    int x = Battlefield.CalculateBossAtk();
                    System.out.println("The Boss Atk is " + x);
                    break;
 
-                case 9:
+                case 9: // Displays top 3 members with highest attack
                     Battlefield.AskTopThreeAtk(characterList);
                     break;
 
-                case 10:
+                case 10: // Recommends a lineup of 4 - (1 from each type) based on the highest HP and DEF
                     Battlefield.HPAndDefLineup(characterList);
                     break;
 
-                case 11:
+                case 11: // Determines character dmg value based on atk and class
                     System.out.println("Enter the character's name:");
                     name = scanner.nextLine();
 
