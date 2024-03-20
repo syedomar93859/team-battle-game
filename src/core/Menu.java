@@ -55,7 +55,7 @@ public class Menu {
      */
     public static void menuLoop() {
 
-        List<Character> characterList = new ArrayList<>(); // list of all characters
+        ArrayList<Character> characterList = new ArrayList<>(); // list of all characters
         Map<String, List<Character>> teams = new HashMap<>(); // list of all teams with characters
         System.out.println(optMessage);
         String choice = scanner.nextLine();
@@ -247,11 +247,11 @@ public class Menu {
                     break;
 
                 case 9:
-                    Battlefield.AskTopThreeAtk();
+                    Battlefield.AskTopThreeAtk(characterList);
                     break;
 
                 case 10:
-                    Battlefield.HPAndDefLineup();
+                    Battlefield.HPAndDefLineup(characterList);
                     break;
 
                 case 11:
