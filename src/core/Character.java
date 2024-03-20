@@ -136,9 +136,9 @@ public abstract class Character implements Comparable<Character> {
     }
 
     /**
-     * Formats the return of toString when viewing About Members
+     * checks if a character exists
      *
-     * @return the formatted String
+     * @return true if character exits, false otherwise
      *
      */
     public static boolean CheckCharacter(int option, List<Character> characterList) {
@@ -200,6 +200,7 @@ public abstract class Character implements Comparable<Character> {
     /**
      * Creates the characters from the file
      *
+     * @return the new Character object
      */
     static Character createFileCharacter(String name, int hp, int atk, int def, CharacterType type) {
         switch (type) {
