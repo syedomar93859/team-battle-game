@@ -5,77 +5,147 @@
  */
 
 package core;
+
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-    public class Tests {
+public class Tests {
 
-        // Test for checking character type existence
-        @Test
-        public void testCheckCharacter() {
-            // Given: Populate a list with different types of characters
-            List<Character> characterList = new ArrayList<>();
-            characterList.add(new Healer("Healer1", 100, 50, 30));
-            characterList.add(new Marksman("Marksman1", 120, 60, 40));
-            characterList.add(new Swordsman("Swordsman1", 150, 70, 50));
-            characterList.add(new ShieldUser("ShieldUser1", 200, 80, 60));
+    // Test for checking character type existence
+    @Test
+    public void testCheckCharacter() {
+        // Given: Populate a list with different types of characters
+        List<Character> characterList = new ArrayList<>();
+        characterList.add(new Healer("Healer1", 100, 50, 30));
+        characterList.add(new Marksman("Marksman1", 120, 60, 40));
+        characterList.add(new Swordsman("Swordsman1", 150, 70, 50));
+        characterList.add(new ShieldUser("ShieldUser1", 200, 80, 60));
 
-            // When: Check if characters of each type exist
-            boolean healerExists = Character.CheckCharacter(1, characterList);
-            boolean marksmanExists = Character.CheckCharacter(2, characterList);
-            boolean swordsmanExists = Character.CheckCharacter(3, characterList);
-            boolean shieldUserExists = Character.CheckCharacter(4, characterList);
+        // When: Check if characters of each type exist
+        boolean healerExists = Character.CheckCharacter(1, characterList);
+        boolean marksmanExists = Character.CheckCharacter(2, characterList);
+        boolean swordsmanExists = Character.CheckCharacter(3, characterList);
+        boolean shieldUserExists = Character.CheckCharacter(4, characterList);
 
-            // Then: Ensure that each type of character exists
-            assertTrue(healerExists);
-            assertTrue(marksmanExists);
-            assertTrue(swordsmanExists);
-            assertTrue(shieldUserExists);
-        }
-
-        // Test for character creation
-        @Test
-        public void testCharacterCreation() {
-            // Given: An empty list of characters
-
-            // When: Create a new character and add it to the list
-            List<Character> characterList = new ArrayList<>();
-            Character newCharacter = new Healer("NewHealer", 100, 50, 30);
-            characterList.add(newCharacter);
-
-            // Then: Ensure that the character is created correctly
-            assertEquals(1, characterList.size());
-            assertEquals("NewHealer", characterList.get(0).getName());
-            assertEquals(100, characterList.get(0).getHp());
-            assertEquals(50, characterList.get(0).getAtk());
-            assertEquals(30, characterList.get(0).getDef());
-        }
-
-        // Test for team creation
-        @Test
-        public void testTeamCreation() {
-            // Given: A list with two different types of characters
-            List<Character> characterList = new ArrayList<>();
-            Character healer = new Healer("Healer1", 100, 50, 30);
-            Character marksman = new Marksman("Marksman1", 120, 60, 40);
-            characterList.add(healer);
-            characterList.add(marksman);
-
-            // When: Create a team using the characters
-            String teamName = "Team1";
-            List<Character> teamMembers = new ArrayList<>();
-            teamMembers.add(healer);
-            teamMembers.add(marksman);
-            Team team = Team.createTeam(teamName, teamMembers);
-
-            // Then: Ensure that the team is created correctly
-            assertEquals(teamName, team.getName());
-            assertEquals(2, team.getMembers().size());
-            assertTrue(team.getMembers().contains(healer));
-            assertTrue(team.getMembers().contains(marksman));
-        }
+        // Then: Ensure that each type of character exists
+        assertTrue(healerExists);
+        assertTrue(marksmanExists);
+        assertTrue(swordsmanExists);
+        assertTrue(shieldUserExists);
     }
+
+    // Test for character creation
+    @Test
+    public void testCharacterCreation() {
+        // Given: An empty list of characters
+
+        // When: Create a new character and add it to the list
+        List<Character> characterList = new ArrayList<>();
+        Character newCharacter = new Healer("NewHealer", 100, 50, 30);
+        characterList.add(newCharacter);
+
+        // Then: Ensure that the character is created correctly
+        assertEquals(1, characterList.size());
+        assertEquals("NewHealer", characterList.get(0).getName());
+        assertEquals(100, characterList.get(0).getHp());
+        assertEquals(50, characterList.get(0).getAtk());
+        assertEquals(30, characterList.get(0).getDef());
+    }
+
+    // Test for team creation
+    @Test
+    public void testTeamCreation() {
+        // Given: A list with two different types of characters
+        List<Character> characterList = new ArrayList<>();
+        Character healer = new Healer("Healer1", 100, 50, 30);
+        Character marksman = new Marksman("Marksman1", 120, 60, 40);
+        characterList.add(healer);
+        characterList.add(marksman);
+
+        // When: Create a team using the characters
+        String teamName = "Team1";
+        List<Character> teamMembers = new ArrayList<>();
+        teamMembers.add(healer);
+        teamMembers.add(marksman);
+        Team team = Team.createTeam(teamName, teamMembers);
+
+        // Then: Ensure that the team is created correctly
+        assertEquals(teamName, team.getName());
+        assertEquals(2, team.getMembers().size());
+        assertTrue(team.getMembers().contains(healer));
+        assertTrue(team.getMembers().contains(marksman));
+    }
+
+    // Test for FileLoader functionality
+    @Test // says contents are identical...
+    public void testFileLoader() {
+        // Initialize the characterList and teams
+        List<Character> characterList = new ArrayList<>();
+        Map<String, List<Character>> teams = new HashMap<>();
+
+        // Provide the file to be loaded
+        File file = new File("TeamFile");
+
+        // Call the method to be tested
+        FileLoader.load(file, characterList, teams);
+
+        // Provide the expected results
+        List<Character> expectedCharacterList = new ArrayList<>();
+        expectedCharacterList.add(Character.createFileCharacter("A", 1, 1, 1, CharacterType.HEALER));
+        expectedCharacterList.add(Character.createFileCharacter("B", 2, 2, 2, CharacterType.MARKSMAN));
+        expectedCharacterList.add(Character.createFileCharacter("C", 3, 3, 3, CharacterType.SWORDSMAN));
+        expectedCharacterList.add(Character.createFileCharacter("D", 4, 4, 4, CharacterType.SHIELDUSER));
+
+        Map<String, List<Character>> expectedTeams = new HashMap<>();
+        expectedTeams.put("team", new ArrayList<>(expectedCharacterList)); // Assuming team has all characters
+
+        // Check if the characterList and teams match the expected results
+        assertEquals(expectedCharacterList, characterList);
+        assertEquals(expectedTeams, teams);
+    }
+
+    // Test for FileSaver functionality
+    @Test
+    public void testFileSaver() throws IOException {
+        // Initialize the characterList and teams
+        List<Character> characterList = new ArrayList<>();
+        characterList.add(Character.createFileCharacter("A", 1, 1, 1, CharacterType.HEALER));
+        characterList.add(Character.createFileCharacter("B", 2, 2, 2, CharacterType.MARKSMAN));
+        characterList.add(Character.createFileCharacter("C", 3, 3, 3, CharacterType.SWORDSMAN));
+        characterList.add(Character.createFileCharacter("D", 4, 4, 4, CharacterType.SHIELDUSER));
+
+        Map<String, List<Character>> teams = new HashMap<>();
+        teams.put("team", new ArrayList<>(characterList)); // Assuming team has all characters
+
+        // Create a temporary file
+        File tempFile = File.createTempFile("test", ".txt");
+
+        // Call the method to be tested
+        boolean result = FileSaver.save(tempFile, characterList, teams);
+
+        // Check if the method returned true
+        assertTrue(result);
+
+        // Now read the file and check if the contents are as expected
+        List<String> lines = Files.readAllLines(tempFile.toPath());
+        assertEquals("Characters", lines.get(0));
+        assertEquals("A,HEALER,1,1,1", lines.get(1));
+        assertEquals("B,MARKSMAN,2,2,2", lines.get(2));
+        assertEquals("C,SWORDSMAN,3,3,3", lines.get(3));
+        assertEquals("D,SHIELDUSER,4,4,4", lines.get(4));
+        assertEquals("", lines.get(5));
+        assertEquals("Teams", lines.get(6));
+        assertEquals("team,A;B;C;D;", lines.get(7));
+    }
+}
+
 

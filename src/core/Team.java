@@ -64,7 +64,7 @@ public class Team {
         for (Character member : teamMembers) {
             newTeam.addMember(member);
         }
-        System.out.println("core.Team " + teamName + " has been created.");
+        System.out.println("Team " + teamName + " has been created.");
         return newTeam;
     }
 }
