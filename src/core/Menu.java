@@ -149,7 +149,7 @@ public class Menu {
                             System.out.println("Invalid character type. Please try again.");
                             return;
                     }
-                    System.out.println("core.Character " + name + " has been created."); // success message
+                    System.out.println("Character " + name + " has been created."); // success message
 
                     break;
 
@@ -163,7 +163,7 @@ public class Menu {
                     for (Character character : characterList) {
                         if (character.getName().equals(name)) {
                             character.setAtk(newAtk);
-                            System.out.println("core.Character " + name + "'s attack has been updated.");
+                            System.out.println("Character " + name + "'s attack has been updated.");
                             break;
                         }
                     }
@@ -179,7 +179,7 @@ public class Menu {
                     for (Character character : characterList) {
                         if (character.getName().equals(name)) {
                             character.setDef(newDef);
-                            System.out.println("core.Character " + name + "'s defense has been updated.");
+                            System.out.println("Character " + name + "'s defense has been updated.");
                             break;
                         }
                     }
@@ -195,7 +195,7 @@ public class Menu {
                     for (Character character : characterList) {
                         if (character.getName().equals(name)) {
                             character.setHp(NewHp);
-                            System.out.println("core.Character " + name + "'s health has been updated.");
+                            System.out.println("Character " + name + "'s health has been updated.");
                             break;
                         }
                     }
@@ -211,7 +211,7 @@ public class Menu {
                     for (Character character : characterList) {
                         if (character.getName().equals(name)) {
                             character.setType(CharacterType.valueOf(newType));
-                            System.out.println("core.Character " + name + "'s type has been updated.");
+                            System.out.println("Character " + name + "'s type has been updated.");
                             break;
                         }
                     }
