@@ -189,7 +189,8 @@ public class Menu {
                         if (characterList.isEmpty()) {
                             System.out.println("No characters available. Please create a character first.");
                         } else {
-                            System.out.print(characterList);
+                            Collections.sort(characterList);  // sort by name
+                            System.out.println(characterList);
                         }
                     } else if (t == 2) {
                         if (teams.isEmpty()) {
@@ -237,51 +238,6 @@ public class Menu {
             System.out.println(optMessage);
             choice = scanner.nextLine();
         }
-    }
-
-    public static boolean CheckCharacter(int option, List<Character> characterList) {
-        boolean exists = false;
-        switch (option) {
-            case 1:
-                // check if there is a core.Healer in team already
-                for (Character character : characterList) {
-                    if (character.getType() == CharacterType.HEALER) {
-                        exists = true;
-                        break;
-                    }
-                }
-            case 2:
-                // check if there is a core.Marksman in team already
-                for (Character character : characterList) {
-                    if (character.getType() == CharacterType.MARKSMAN) {
-                        exists = true;
-                        break;
-                    }
-                }
-
-            case 3:
-                // check if there is a Swordsman in team already
-                for (Character character : characterList) {
-                    if (character.getType() == CharacterType.SWORDSMAN) {
-                        exists = true;
-                        break;
-                    }
-                }
-
-            case 4:
-                // check if there is a ShieldUser in team already
-                for (Character character : characterList) {
-                    if (character.getType() == CharacterType.SHIELDUSER) {
-                        exists = true;
-                        break;
-                    }
-                }
-
-            default:
-                System.out.println("Invalid option.");
-                break;
-        }
-        return exists;
     }
 
     private static void save(List<Character> characterList, Map<String, List<Character>> teams) {

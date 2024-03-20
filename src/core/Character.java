@@ -1,6 +1,8 @@
 package core;
 
-public abstract class Character {
+import java.util.List;
+
+public abstract class Character implements Comparable<Character> {
 
     protected String name;
     protected int hp;
@@ -65,6 +67,57 @@ public abstract class Character {
     public String toString() {
         return "Name: " + this.name + ", HP: " + this.hp + ", ATK: " + this.atk + ", DEF: " + this.def + ", TYPE: " + this.type;
     }
+
+    public static boolean CheckCharacter(int option, List<Character> characterList) {
+        boolean exists = false;
+        switch (option) {
+            case 1:
+                // check if there is a Healer in team
+                for (Character character : characterList) {
+                    if (character.getType() == CharacterType.HEALER) {
+                        exists = true;
+                        break;
+                    }
+                }
+            case 2:
+                // check if there is a Marksman in team
+                for (Character character : characterList) {
+                    if (character.getType() == CharacterType.MARKSMAN) {
+                        exists = true;
+                        break;
+                    }
+                }
+
+            case 3:
+                // check if there is a Swordsman in team
+                for (Character character : characterList) {
+                    if (character.getType() == CharacterType.SWORDSMAN) {
+                        exists = true;
+                        break;
+                    }
+                }
+
+            case 4:
+                // check if there is a ShieldUser in team
+                for (Character character : characterList) {
+                    if (character.getType() == CharacterType.SHIELDUSER) {
+                        exists = true;
+                        break;
+                    }
+                }
+
+            default:
+                System.out.println("Invalid option.");
+                break;
+        }
+        return exists;
+    }
+
+    @Override
+    public int compareTo(Character other) {
+        return this.name.compareTo(other.name);  // sort by name
+    }
+
 }
 
 

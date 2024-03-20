@@ -18,10 +18,10 @@ import static org.junit.jupiter.api.Assertions.*;
             characterList.add(new ShieldUser("ShieldUser1", 200, 80, 60));
 
             // When: Check if characters of each type exist
-            boolean healerExists = Menu.CheckCharacter(1, characterList);
-            boolean marksmanExists = Menu.CheckCharacter(2, characterList);
-            boolean swordsmanExists = Menu.CheckCharacter(3, characterList);
-            boolean shieldUserExists = Menu.CheckCharacter(4, characterList);
+            boolean healerExists = Character.CheckCharacter(1, characterList);
+            boolean marksmanExists = Character.CheckCharacter(2, characterList);
+            boolean swordsmanExists = Character.CheckCharacter(3, characterList);
+            boolean shieldUserExists = Character.CheckCharacter(4, characterList);
 
             // Then: Ensure that each type of character exists
             assertTrue(healerExists);
