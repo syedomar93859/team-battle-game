@@ -24,10 +24,10 @@ public class Menu {
         options.add("Update hp for character");
         options.add("Update class for character");
         options.add("About Members");
-        options.add("Determine boss's atk based on number of characters in a team");
-        options.add("Ask for the top 3 members based on atk from different classes");
-        options.add("Recommend a lineup of 4 based on hp and def");
-        options.add("Determine damage value");
+        options.add("Determine boss's atk");
+        options.add("Ask for the top 3 members based on atk");
+        options.add("Recommend a lineup based on hp and def");
+        options.add("Determine character damage value");
         options.add("Save data to file");
         options.add("Load data from file");
     }
@@ -243,8 +243,9 @@ public class Menu {
                     break;
 
                 case 8:
-                    Battlefield.CalculateBossAtk();
-                    break;
+                   int x = Battlefield.CalculateBossAtk();
+                   System.out.println("The Boss Atk is " + x);
+                   break;
 
                 case 9:
                     Battlefield.AskTopThreeAtk(characterList);
@@ -260,7 +261,8 @@ public class Menu {
 
                     for (Character character : characterList) {
                         if (character.getName().equals(name)) {
-                            Battlefield.CalculateDamage(character);
+                            int y = Battlefield.CalculateDamage(character);
+                            System.out.println("The Character Damage is" + y);
                             break;
                         }
                     }
