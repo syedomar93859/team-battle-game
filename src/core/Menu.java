@@ -243,9 +243,9 @@ public class Menu {
                     break;
 
                 case 8: // Calculate Boss Attack
-                   int x = Battlefield.CalculateBossAtk();
-                   System.out.println("The Boss Atk is " + x);
-                   break;
+                    int x = Battlefield.CalculateBossAtk();
+                    System.out.println("The Boss Atk is " + x);
+                    break;
 
                 case 9: // Displays top 3 members with highest attack
                     Battlefield.AskTopThreeAtk(characterList);
@@ -288,7 +288,7 @@ public class Menu {
             scanner.nextLine();
             System.out.println(optMessage);
             choice = scanner.nextLine();
-        }
+        }System.out.println("You have exited the battle.\nFIGHT EXITED");
     }
 
     /**
