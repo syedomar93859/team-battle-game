@@ -147,10 +147,13 @@ public class Tests {
     }
     @Test
     public void CalculateBossAtk(){
+        //The atk of the boss is calculated using a number from 0-10.
         Random rand = new Random();
         int highestDamageMultiplier = 11;
         int randomMultiplier = rand.nextInt(highestDamageMultiplier);
+        //fulldamage is the full damage dealt by the boss
         int fulldamage = randomMultiplier * 1000;
+        //The 3 lines below check to see if the full damage has been calculated and is expected.
         Assert.assertTrue(fulldamage >= 0);
         Assert.assertTrue(fulldamage < 10001);
         Assert.assertTrue(fulldamage % 1000 == 0);
@@ -158,6 +161,7 @@ public class Tests {
     @Test
     public void AskTopThreeAtk(){
         ArrayList<Character> characterList = new ArrayList<Character>();
+        //The four lines below fill the characterlist with unique members
         characterList.add(Character.createFileCharacter("Bob", 2, 10, 2, CharacterType.HEALER));
         characterList.add(Character.createFileCharacter("John", 3, 2, 1, CharacterType.MARKSMAN));
         characterList.add(Character.createFileCharacter("Amy", 5, 4, 7, CharacterType.SWORDSMAN));
@@ -189,16 +193,22 @@ public class Tests {
                 }
             }
         }
+        //The six lines below check to makes sure that all 3 highest damaging members are in the right
+        //positions in TopThreeMembers. The item at index 0 in TopThreeMembers should hold information
+        // about the member that does the most damage. The item at index 0 in TopThreeMembers should hold
+        // information about the member that does the 2nd most damage. The item at index 0 in
+        // TopThreeMembers should hold information about the member that does the 3rd most damage.
         String[] mostDamagingMember = TopThreeMembers[0].split(":");
         String[] middleDamagingMember = TopThreeMembers[1].split(":");
-        String[] leastDamagingMember = TopThreeMembers[2].split(":");
+        String[] lowDamagingMember = TopThreeMembers[2].split(":");
         assertTrue(10 == Integer.parseInt(mostDamagingMember[1]));
         assertTrue(9 == Integer.parseInt(middleDamagingMember[1]));
-        assertTrue(4 == Integer.parseInt(leastDamagingMember[1]));
+        assertTrue(4 == Integer.parseInt(lowDamagingMember[1]));
     }
     @Test
     public void HpAndDefLineup(){
         ArrayList<Character> characterList = new ArrayList<Character>();
+        //The four lines below fill the characterlist with unique members
         characterList.add(Character.createFileCharacter("Tom", 8, 15, 8, CharacterType.HEALER));
         characterList.add(Character.createFileCharacter("Jerry", 2, 2, 2, CharacterType.MARKSMAN));
         characterList.add(Character.createFileCharacter("Spike", 4, 0, 6, CharacterType.SWORDSMAN));
@@ -219,6 +229,8 @@ public class Tests {
             lineupDetails.append(member.getType() + " named " + member.getName() + " with " + member.getHp() + " HP and " + member.getDef() + " DEF.\n");
         }
         StringBuilder expectedLineup = new StringBuilder("The recommended lineup is:\n");
+        //The for loop below goes through all the members in bestCharacters and adds the corresponding line
+        //to expectedLineup.
         for (Character member : bestCharacters.values()) {
             if (member.getType() == CharacterType.HEALER){
                 expectedLineup.append("HEALER" + " named " + "Tom" + " with " + 8 + " HP and " + 8 + " DEF.\n");
@@ -230,11 +242,14 @@ public class Tests {
                 expectedLineup.append("SHIELDUSER" + " named " + "Guy" + " with " + 4 + " HP and " + 19 + " DEF.\n");
             }
         }
+        //The line below checks if the lineup is being properly printed, by checking if the expected lineup
+        //is equal to the actual lineup.
         assertEquals(expectedLineup.toString(),lineupDetails.toString());
     }
     @Test
     public void CalculateDamage(){
         int finalDamage = 0;
+        //The block of code below takes an example member, and calculates the damage they deal
         Character partyMemberType = Character.createFileCharacter("Jerry", 2, 2, 2, CharacterType.MARKSMAN);
         if (partyMemberType.getType() == CharacterType.HEALER){
             finalDamage = partyMemberType.getAtk();
@@ -246,6 +261,7 @@ public class Tests {
             finalDamage = partyMemberType.getAtk();
         }
         finalDamage = Math.round(finalDamage);
+        //The damage dealt by the example member should be 2.
         assertTrue(2 == finalDamage);
     }
 }
