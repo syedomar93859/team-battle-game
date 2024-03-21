@@ -10,8 +10,8 @@ import java.io.File;
 import java.util.*;
 
 public class Menu {
-    public static final Scanner scanner; // scanner to read inputs
-    public static final ArrayList<String> options; // arraylist of menu options
+    private static final Scanner scanner; // scanner to read inputs
+    private static final ArrayList<String> options; // arraylist of menu options
 
     static { // menu options
         scanner = new Scanner(System.in);
@@ -32,7 +32,7 @@ public class Menu {
         options.add("Load data from file");
     }
 
-    //The method below is the intro message that shows up above the menu.
+    // Below is the intro message that shows up above the menu.
     private static String optMessage = """
             \s
                          
@@ -288,7 +288,7 @@ public class Menu {
             scanner.nextLine();
             System.out.println(optMessage);
             choice = scanner.nextLine();
-        }
+        }System.out.println("You have exited the battle.\nFIGHT EXITED");
     }
 
     /**
@@ -325,4 +325,3 @@ public class Menu {
         FileLoader.load(file, characterList, teams); // calls to FileLoader
     }
 }
-
