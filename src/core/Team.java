@@ -3,8 +3,8 @@
  *  March 20, 2024
  *  T12
  */
-
 package core;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,3 +68,4 @@ public class Team {
         return newTeam;
     }
 }
+
