@@ -5,12 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a4f87bc1-a171-4809-b3e9-e4f979fb00ae" name="Changes" comment="edit Menu">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-03-14__10_27_p_m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024-03-14__10_27_p_m___Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-03-18,_4_24_p_m__[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-03-18__4_24_p_m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-03-18__4_24_p_m___Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-03-18__4_24_p_m___Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-03-18__4_24_p_m___Changes_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-03-20__5_24_a_m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-03-20__5_24_a_m___Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/src/main/java/module-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/src/main/resources/rw/app/project/hello-view.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,10 +34,11 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Demo2" />
+        <entry key="$PROJECT_DIR$" value="Demo3" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitLabMergeRequestFiltersHistory">{
   &quot;lastFilter&quot;: {
@@ -44,8 +52,8 @@
 }</component>
   <component name="GitLabMergeRequestsSettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;first&quot;: &quot;https://csgit.ucalgary.ca/syed.omar/groupproject.git&quot;,
-    &quot;second&quot;: &quot;7f59f09e-fb54-4e2a-98f6-5935971f61a7&quot;
+    &quot;first&quot;: &quot;https://csgit.ucalgary.ca/syed.omar/groupproject&quot;,
+    &quot;second&quot;: &quot;83d5fb47-7f02-4a73-ac39-ff3017bddf47&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -168,19 +176,19 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Game" />
-        <item itemvalue="JUnit.Tests.testFileLoader" />
-        <item itemvalue="JUnit.Tests.testFileSaver" />
-        <item itemvalue="JUnit.Tests.testCheckCharacter" />
         <item itemvalue="JUnit.Tests.testTeamCreation" />
+        <item itemvalue="JUnit.Tests.testFileSaver" />
+        <item itemvalue="JUnit.Tests.testFileLoader" />
+        <item itemvalue="JUnit.Tests.testCheckCharacter" />
+        <item itemvalue="Application.Game" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.1-openjdk-21.0.1-4caba194b151-23eed401" />
-        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
       </set>
     </attachedChunks>
   </component>
@@ -203,6 +211,8 @@
       <workItem from="1711061272191" duration="168000" />
       <workItem from="1711142520937" duration="60000" />
       <workItem from="1711771711921" duration="119000" />
+      <workItem from="1712529570866" duration="537000" />
+      <workItem from="1712530115344" duration="95000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
